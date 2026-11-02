@@ -56,6 +56,11 @@ public class InventoryPage extends BasePage {
     /** Opens the burger menu, reads its entries (e.g. "All Items", "Logout") and closes it again. */
     public List<String> menuEntries() {
         click(MENU_BUTTON);
+        // WHY: right after login the burger button can be clicked before its handler is attached,
+        // so the menu stays shut (seen in parallel runs). One more click opens it reliably.
+        if (!appearsWithin(MENU_ITEMS, java.time.Duration.ofSeconds(3))) {
+            click(MENU_BUTTON);
+        }
         List<String> entries = getTexts(MENU_ITEMS);
         click(CLOSE_MENU);
         // WHY: the menu slides out with an animation and would block clicks on the products meanwhile.

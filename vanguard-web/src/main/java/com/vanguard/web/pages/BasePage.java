@@ -66,6 +66,16 @@ public abstract class BasePage {
         }
     }
 
+    /** True if the element becomes visible within the timeout; false (no exception) otherwise. */
+    protected boolean appearsWithin(By locator, Duration timeout) {
+        try {
+            new WebDriverWait(driver(), timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
     /** Waits until the element is gone or hidden (e.g. a closing menu or a spinner). */
     protected void waitUntilHidden(By locator) {
         waitFor(ExpectedConditions.invisibilityOfElementLocated(locator), locator, "hidden");
