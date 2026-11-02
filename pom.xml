@@ -14,6 +14,7 @@
     <modules>
         <module>vanguard-core</module>
         <module>vanguard-api</module>
+        <module>vanguard-web</module>
         <!-- vanguard-reporting MUST stay last: it merges the results of every module above. -->
         <module>vanguard-reporting</module>
     </modules>

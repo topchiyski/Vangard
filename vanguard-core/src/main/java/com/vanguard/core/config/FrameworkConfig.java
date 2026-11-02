@@ -30,6 +30,11 @@ public interface FrameworkConfig extends Config {
     @DefaultValue("https://www.saucedemo.com")
     String uiBaseUrl();
 
+    /** Password of the SauceDemo demo users (public demo credentials; real secrets belong in env vars). */
+    @Key("ui.password")
+    @DefaultValue("secret_sauce")
+    String uiPassword();
+
     /** Empty = use the embedded WireMock server. */
     @Key("api.base.url")
     @DefaultValue("")
