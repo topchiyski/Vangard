@@ -4,7 +4,7 @@ Search this page (Ctrl+F) for the first words of your error message.
 
 ---
 
-### `Undefined step` / `You can implement missing steps with the snippets below`
+### `The step '...' is undefined. You can implement this step using the snippet(s) below`
 
 **Cause:** no Java method matches the Gherkin line. Usually a typo, or the step class is in a package the runner doesn't scan.
 **Fix:**

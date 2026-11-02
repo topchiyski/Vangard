@@ -113,8 +113,9 @@ public final class ReportAggregator {
             return true;
         }
         try {
-            // WHY: 5s tolerance for file-system timestamp granularity.
-            return Files.getLastModifiedTime(file).toInstant().isAfter(since.minusSeconds(5));
+            // WHY: no tolerance - the build timestamp is truncated to the second, so this run's files are never
+            // older than it, while a tolerance let results of an immediately preceding run leak in.
+            return !Files.getLastModifiedTime(file).toInstant().isBefore(since);
         } catch (IOException e) {
             return false;
         }

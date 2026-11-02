@@ -136,10 +136,12 @@ Run it now, before writing any Java:
 mvn verify -pl vanguard-web,vanguard-reporting -am -Dcucumber.filter.tags="@product-details"
 ```
 
-What you should see: the scenario fails as **undefined**, and Cucumber prints the Java methods you need:
+What you should see: the scenario fails as **undefined**, and Cucumber prints the Java method you need:
 
 ```
-You can implement missing steps with the snippets below:
+The step 'I open the details of "Sauce Labs Fleece Jacket"' is undefined.
+You can implement this step using the snippet(s) below:
+
 @When("I open the details of {string}")
 public void iOpenTheDetailsOf(String string) {
 ```

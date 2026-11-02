@@ -33,6 +33,9 @@ public class RetryAnalyzer implements IRetryAnalyzer {
 
     @Override
     public boolean retry(ITestResult result) {
+        if (isNeverFixedByRetry(result.getThrowable())) {
+            return false;
+        }
         List<Object> key = Arrays.asList(result.getParameters());
         int attempt = attempts.computeIfAbsent(key, k -> new AtomicInteger()).incrementAndGet();
         if (attempt <= maxRetries) {
@@ -40,6 +43,12 @@ public class RetryAnalyzer implements IRetryAnalyzer {
             return true;
         }
         return false;
+    }
+
+    /** Undefined or ambiguous steps fail the same way every time: retrying only wastes time. */
+    private static boolean isNeverFixedByRetry(Throwable failure) {
+        String type = failure == null ? "" : failure.getClass().getSimpleName();
+        return type.equals("UndefinedStepException") || type.startsWith("AmbiguousStepDefinitions");
     }
 
     private static String describe(ITestResult result) {
