@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- ${threads} is replaced at build time (default 4, override with -Dthreads=N). -->
+<suite name="Vanguard E2E" data-provider-thread-count="${threads}">
+    <listeners>
+        <listener class-name="com.vanguard.core.retry.RetryTransformer"/>
+    </listeners>
+    <test name="e2e">
+        <classes>
+            <class name="com.vanguard.e2e.runner.E2eTestRunner"/>
+        </classes>
+    </test>
+</suite>
