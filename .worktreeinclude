@@ -1,0 +1,4 @@
+# Untracked files copied into new git worktrees (gitignore syntax).
+# Mobile sample apps are large downloads; reuse them instead of downloading again.
+apps/
+.env.local
