@@ -1,0 +1,9 @@
+{
+  "name": "Catalog of the six SauceDemo products (used by E2E)",
+  "request": { "method": "GET", "urlPath": "/catalog/products" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "bodyFileName": "catalog/products.json"
+  }
+}

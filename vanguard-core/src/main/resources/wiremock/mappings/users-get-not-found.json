@@ -1,0 +1,10 @@
+{
+  "name": "GET an unknown user returns 404",
+  "priority": 10,
+  "request": { "method": "GET", "urlPathPattern": "/users/[0-9]+" },
+  "response": {
+    "status": 404,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "error": "User not found" }
+  }
+}

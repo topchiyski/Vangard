@@ -1,0 +1,15 @@
+{
+  "name": "POST a valid user returns 201 and echoes it with a new id",
+  "priority": 5,
+  "request": {
+    "method": "POST",
+    "urlPath": "/users",
+    "bodyPatterns": [ { "matchesJsonPath": "$.email" } ]
+  },
+  "response": {
+    "status": 201,
+    "headers": { "Content-Type": "application/json" },
+    "body": "{ \"id\": 11, \"name\": \"{{jsonPath request.body '$.name'}}\", \"username\": \"{{jsonPath request.body '$.username'}}\", \"email\": \"{{jsonPath request.body '$.email'}}\" }",
+    "transformers": ["response-template"]
+  }
+}

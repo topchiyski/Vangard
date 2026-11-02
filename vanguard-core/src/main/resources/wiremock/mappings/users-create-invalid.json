@@ -1,0 +1,10 @@
+{
+  "name": "POST a user without email returns 400",
+  "priority": 10,
+  "request": { "method": "POST", "urlPath": "/users" },
+  "response": {
+    "status": 400,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "error": "email is required" }
+  }
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.vanguard</groupId>
+        <artifactId>vanguard-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>vanguard-reporting</artifactId>
+    <name>Vanguard :: Reporting</name>
+    <description>Merges every module's results, writes Allure environment info, uploads to Xray, decides pass/fail.</description>
+
+    <properties>
+        <vanguard.report.skip>false</vanguard.report.skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.vanguard</groupId>
+            <artifactId>vanguard-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- No tests here: this module only aggregates the results of the others. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>aggregate-results</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${vanguard.report.skip}</skip>
+                            <mainClass>com.vanguard.reporting.ReportAggregator</mainClass>
+                            <arguments>
+                                <argument>--root</argument>
+                                <argument>${project.basedir}/..</argument>
+                                <!-- Only modules that ran in THIS build are merged (no stale results). -->
+                                <argument>--since</argument>
+                                <argument>${maven.build.timestamp}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

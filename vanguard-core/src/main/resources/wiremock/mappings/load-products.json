@@ -1,0 +1,11 @@
+{
+  "name": "Product details with a realistic random delay (load tests)",
+  "request": { "method": "GET", "urlPathPattern": "/products/[0-9]+" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "body": "{ \"id\": {{request.pathSegments.[1]}}, \"name\": \"Product {{request.pathSegments.[1]}}\", \"price\": 19.99 }",
+    "transformers": ["response-template"],
+    "delayDistribution": { "type": "uniform", "lower": 20, "upper": 80 }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "PUT a user returns 200 and echoes it",
+  "request": { "method": "PUT", "urlPathPattern": "/users/[0-9]+" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "body": "{ \"id\": {{request.pathSegments.[1]}}, \"name\": \"{{jsonPath request.body '$.name'}}\", \"username\": \"{{jsonPath request.body '$.username'}}\", \"email\": \"{{jsonPath request.body '$.email'}}\" }",
+    "transformers": ["response-template"]
+  }
+}

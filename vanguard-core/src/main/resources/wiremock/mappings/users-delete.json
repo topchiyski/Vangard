@@ -1,0 +1,5 @@
+{
+  "name": "DELETE a user returns 204",
+  "request": { "method": "DELETE", "urlPathPattern": "/users/[0-9]+" },
+  "response": { "status": 204 }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Health endpoint for load smoke tests",
+  "request": { "method": "GET", "urlPath": "/health" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "status": "UP" },
+    "fixedDelayMilliseconds": 10
+  }
+}

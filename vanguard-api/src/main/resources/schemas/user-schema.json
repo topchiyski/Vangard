@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User",
+  "description": "A single user returned by GET /users/{id}",
+  "type": "object",
+  "required": ["id", "name", "username", "email"],
+  "properties": {
+    "id": { "type": "integer", "minimum": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "username": { "type": "string", "minLength": 1 },
+    "email": { "type": "string", "format": "email" }
+  },
+  "additionalProperties": true
+}

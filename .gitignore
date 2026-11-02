@@ -1,0 +1,11 @@
+target/
+apps/
+*.iml
+.idea/
+.vscode/
+allure-results/
+.allure/
+.env*
+.claude/settings.local.json
+.claude/worktrees/
+CLAUDE.local.md
