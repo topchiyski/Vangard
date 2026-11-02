@@ -16,6 +16,7 @@
         <module>vanguard-api</module>
         <module>vanguard-web</module>
         <module>vanguard-load</module>
+        <module>vanguard-mobile</module>
         <module>vanguard-e2e</module>
         <!-- vanguard-reporting MUST stay last: it merges the results of every module above. -->
         <module>vanguard-reporting</module>
