@@ -187,9 +187,17 @@ public final class ReportAggregator {
         return failed;
     }
 
-    /** vanguard-api/target/cucumber-reports/cucumber.json -> vanguard-api */
+    /**
+     * vanguard-api/target/cucumber-reports/cucumber.json -> vanguard-api.
+     * In CI, artifacts may be flattened (results-load/cucumber-reports/cucumber.json) -> results-load.
+     */
     private static String moduleName(Path report) {
-        Path moduleDir = report.getParent().getParent().getParent();
-        return moduleDir == null ? report.toString() : moduleDir.getFileName().toString();
+        for (Path dir = report.getParent(); dir != null && dir.getFileName() != null; dir = dir.getParent()) {
+            String name = dir.getFileName().toString();
+            if (name.startsWith("vanguard-") || name.startsWith("results-")) {
+                return name;
+            }
+        }
+        return report.getParent().getParent().getFileName().toString();
     }
 }
