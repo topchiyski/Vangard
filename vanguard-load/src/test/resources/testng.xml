@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Load tests: serial, and deliberately WITHOUT the RetryTransformer listener. -->
+<suite name="Vanguard Load">
+    <test name="load">
+        <classes>
+            <class name="com.vanguard.load.runner.LoadTestRunner"/>
+        </classes>
+    </test>
+</suite>
