@@ -6,7 +6,7 @@ API tests with RestAssured. By default they run against the built-in WireMock fa
 |---|---|
 | No-code example | `src/test/resources/features/api_common_steps.feature` |
 | Template | `templates/api/` |
-| Recipe | [Recipe 2](../docs/JUNIOR_ONBOARDING_GUIDE.md#recipe-2-a-new-api-test) |
+| Recipe | [Recipe 2](../docs/ONBOARDING_GUIDE.md#recipe-2-a-new-api-test) |
 
 Run only this module: `mvn verify -pl vanguard-api,vanguard-reporting -am`
 

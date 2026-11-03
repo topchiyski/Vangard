@@ -49,7 +49,7 @@ Behind a company proxy, set `HTTPS_PROXY`, or ask for `~/.cache/selenium` to be 
 ### `No value for ContextKey.X in ScenarioContext. Available keys: [...]`
 
 **Cause:** a step reads a value that no earlier step stored.
-**Fix:** make sure an earlier step calls `context.set(ContextKey.X, ...)`. Remember that each scenario starts empty. See [Recipe 5](JUNIOR_ONBOARDING_GUIDE.md#recipe-5-share-data-between-steps).
+**Fix:** make sure an earlier step calls `context.set(ContextKey.X, ...)`. Remember that each scenario starts empty. See [Recipe 5](ONBOARDING_GUIDE.md#recipe-5-share-data-between-steps).
 
 ### `Nothing remembered as "userId"`
 

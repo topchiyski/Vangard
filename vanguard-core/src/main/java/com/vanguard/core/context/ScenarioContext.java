@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class ScenarioContext {
 
     private static final Pattern PLACEHOLDER = Pattern.compile("\\{([A-Za-z0-9_.-]+)}");
-    private static final String HELP = "See docs/JUNIOR_ONBOARDING_GUIDE.md#recipe-5-share-data-between-steps";
+    private static final String HELP = "See docs/ONBOARDING_GUIDE.md#recipe-5-share-data-between-steps";
 
     private final Map<ContextKey, Object> values = new EnumMap<>(ContextKey.class);
     private final Map<String, String> named = new LinkedHashMap<>();

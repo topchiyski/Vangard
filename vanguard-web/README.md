@@ -8,7 +8,7 @@ Samples run against https://www.saucedemo.com.
 | Phone-sized Chrome | `web_responsive.feature` |
 | Visual checks | `web_visual.feature` (skipped unless `-Dvisual.enabled=true` and `APPLITOOLS_API_KEY`) |
 | Template | `templates/web/` |
-| Recipe | [Recipe 1](../docs/JUNIOR_ONBOARDING_GUIDE.md#recipe-1-a-new-web-test) |
+| Recipe | [Recipe 1](../docs/ONBOARDING_GUIDE.md#recipe-1-a-new-web-test) |
 
 Run: `mvn verify -pl vanguard-web,vanguard-reporting -am` · watch it with `-Dbrowser.headless=false`
 

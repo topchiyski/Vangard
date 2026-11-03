@@ -6,7 +6,7 @@ This module **reuses** the clients and Page Objects of `vanguard-api` and `vangu
 | Reference example | `src/test/resources/features/catalog_to_checkout.feature` + `CatalogJourneySteps` |
 |---|---|
 | Template | `templates/e2e/` |
-| Recipe | [Recipe 5](../docs/JUNIOR_ONBOARDING_GUIDE.md#recipe-5-share-data-between-steps) |
+| Recipe | [Recipe 5](../docs/ONBOARDING_GUIDE.md#recipe-5-share-data-between-steps) |
 
 Run: `mvn verify -pl vanguard-e2e,vanguard-reporting -am`
 

@@ -25,7 +25,7 @@ public class ScenarioContextTest {
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("No value for ContextKey.CREATED_USER")
                 .hasMessageContaining("Available keys: [SCENARIO_NAME]")
-                .hasMessageContaining("JUNIOR_ONBOARDING_GUIDE");
+                .hasMessageContaining("ONBOARDING_GUIDE");
     }
 
     @Test
