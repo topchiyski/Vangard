@@ -16,4 +16,4 @@ After copying:
 3. Run the test on its own. The command is in the header comment of each feature file.
 
 The templates are compiled on every build, so they always match the current framework. They never run as tests.
-The step-by-step recipes are in [docs/JUNIOR_ONBOARDING_GUIDE.md](../docs/JUNIOR_ONBOARDING_GUIDE.md).
+The step-by-step recipes are in [docs/ONBOARDING_GUIDE.md](../docs/ONBOARDING_GUIDE.md).

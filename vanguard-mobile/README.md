@@ -10,7 +10,7 @@ They run locally (emulator, simulator or device) or on BrowserStack.
 | Hybrid | `hybrid_webview.feature` |
 | Phone browser | `mobile_web_saucedemo.feature` (reuses the web Page Objects) |
 | Template | `templates/mobile/` |
-| Recipe | [Recipe 3](../docs/JUNIOR_ONBOARDING_GUIDE.md#recipe-3-a-new-mobile-test-android--ios) |
+| Recipe | [Recipe 3](../docs/ONBOARDING_GUIDE.md#recipe-3-a-new-mobile-test-android--ios) |
 
 Run:
 ```bash

@@ -1,7 +1,7 @@
 # TEMPLATE: API feature.
 # Copy to vanguard-api/src/test/resources/features/<area>.feature and replace every TODO.
 # Need a fake endpoint? Add a JSON stub in vanguard-core/src/main/resources/wiremock/mappings
-# (see docs/JUNIOR_ONBOARDING_GUIDE.md, Recipe 2).
+# (see docs/ONBOARDING_GUIDE.md, Recipe 2).
 # ─────────────────────────────────────────────────────────────────────────────
 # What it tests : TODO
 # Uses          : TODO ExampleClient, ExampleApiSteps

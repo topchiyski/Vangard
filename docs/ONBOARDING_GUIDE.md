@@ -1,4 +1,4 @@
-# Junior Onboarding Guide
+# Onboarding Guide
 
 This guide takes you from "never seen this project" to "I added my own tests", one step at a time.
 Every recipe uses **complete code**: copy it as shown and it works.
