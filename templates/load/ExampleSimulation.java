@@ -9,7 +9,7 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 
 /**
  * TEMPLATE: Gatling simulation (Java DSL - no Scala).
- * Often you do NOT need a new simulation: ApiBrowseSimulation works for any GET endpoint.
+ * Often you do NOT need a new simulation: "When I run the load test" works for any GET endpoint.
  * Copy to vanguard-load/src/main/java/com/vanguard/load/simulation/<Name>Simulation.java and:
  * 1. TODO rename (e.g. CheckoutSimulation); package com.vanguard.load.simulation
  * 2. TODO describe ONE user's journey in the scenario: requests + checks + think time

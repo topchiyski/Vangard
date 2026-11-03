@@ -557,7 +557,7 @@ What you should see: `vanguard-mobile  1  0  0`, `BUILD SUCCESS`.
 > By default Vanguard sends load to its own local fake server (WireMock).
 
 **Goal:** check that the users endpoint stays fast under load.
-You don't need any Java: `ApiBrowseSimulation` can hit any named endpoint.
+You don't need any Java: `When I run the load test` makes every virtual user send GET requests to the endpoint you name.
 
 Create `vanguard-load/src/test/resources/features/users_load.feature`:
 
@@ -571,7 +571,7 @@ Feature: Users API performance
     Given a load profile "users-read" against the "users" endpoint:
       | users | rampUpSeconds | durationSeconds | thinkTimeMs |
       | 30    | 15            | 60              | 300         |
-    When I run the "ApiBrowseSimulation" load test
+    When I run the load test
     Then the error rate is below 1 percent
     And the 95th percentile response time is below 500 ms
     And at least 10 requests were sent
@@ -597,7 +597,7 @@ mvn verify -pl vanguard-load,vanguard-reporting -am -Dcucumber.filter.tags="@use
 What you should see (by default the profile is capped to a quick "smoke" run):
 
 ```
-LoadSteps - Smoke load profile: capped to 5 users / 15s (run with -Dload.profile=full for the real load)
+LoadSteps - Smoke load profile: capped to 5 users / 8s (run with -Dload.profile=full for the real load)
 ...
 vanguard-load                 1        0        0
 [INFO] BUILD SUCCESS
