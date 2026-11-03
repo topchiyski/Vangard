@@ -19,11 +19,17 @@ public class ExampleScreen extends BaseScreen {
             AppiumBy.id("TODO.package:id/title"),          // Android
             AppiumBy.accessibilityId("TODO title"));       // iOS
 
+    /**
+     * Waits for the screen, then taps Save.
+     */
     public void save() {
         waitUntilVisible(SCREEN);
         tap(SAVE);
     }
 
+    /**
+     * The title shown on the screen.
+     */
     public String title() {
         return getText(TITLE);
     }

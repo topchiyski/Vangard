@@ -26,6 +26,7 @@ Java 21 Maven multi-module BDD test platform (Cucumber 7 + TestNG). Users are ju
 ## Conventions
 - Tags: browser `@web`; phone `@mobile` + `@native|@hybrid|@mobileweb`; `@load`; Jira `@TEST_<KEY>-<n>`.
 - Money as `BigDecimal`; secrets from env vars via `ConfigProvider.secret(..)`.
+- Javadoc is always multi-line (`/**`, ` * text`, ` */`), never `/** text */`. Public classes and public/protected methods get one; skip injection-only constructors and step definitions.
 - Changed a step, page or command used in `docs/`? Update the guide and `docs/STEP_CATALOGUE.md` in the same change.
 
 ## Pinned on purpose

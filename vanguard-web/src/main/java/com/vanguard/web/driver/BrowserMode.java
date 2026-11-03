@@ -4,7 +4,9 @@ import com.vanguard.core.config.ConfigProvider;
 
 import java.util.Collection;
 
-/** Desktop Chrome or Chrome emulating a phone. */
+/**
+ * Desktop Chrome or Chrome emulating a phone.
+ */
 public enum BrowserMode {
     DESKTOP, MOBILE_EMULATION;
 

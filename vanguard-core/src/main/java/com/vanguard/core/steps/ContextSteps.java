@@ -14,7 +14,9 @@ public class ContextSteps {
         this.context = context;
     }
 
-    /** Example: {@code Given I remember "Sauce Labs Backpack" as "product"} then use {@code {product}} later. */
+    /**
+     * Example: {@code Given I remember "Sauce Labs Backpack" as "product"} then use {@code {product}} later.
+     */
     @Given("I remember {string} as {string}")
     public void iRemember(String value, String name) {
         context.remember(name, context.resolve(value));

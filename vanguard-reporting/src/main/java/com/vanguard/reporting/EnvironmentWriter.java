@@ -12,7 +12,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/** Writes the "Environment" widget shown on the Allure report overview page. */
+/**
+ * Writes the "Environment" widget shown on the Allure report overview page.
+ */
 final class EnvironmentWriter {
 
     private EnvironmentWriter() {

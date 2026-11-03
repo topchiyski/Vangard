@@ -24,13 +24,17 @@ public final class CucumberJsonMerger {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final Set<String> FAILED = Set.of("failed", "undefined", "pending", "ambiguous");
 
-    /** Outcome of a single scenario after deduplication. */
+    /**
+     * Outcome of a single scenario after deduplication.
+     */
     public enum Outcome { PASSED, FAILED, SKIPPED }
 
     private CucumberJsonMerger() {
     }
 
-    /** Reads and merges several cucumber.json files, then deduplicates retried scenarios. */
+    /**
+     * Reads and merges several cucumber.json files, then deduplicates retried scenarios.
+     */
     public static ArrayNode mergeFiles(List<Path> files) {
         ArrayNode all = MAPPER.createArrayNode();
         for (Path file : files) {
@@ -46,7 +50,9 @@ public final class CucumberJsonMerger {
         return deduplicate(all);
     }
 
-    /** Parses a cucumber.json string and deduplicates retried scenarios. */
+    /**
+     * Parses a cucumber.json string and deduplicates retried scenarios.
+     */
     public static ArrayNode deduplicate(String cucumberJson) {
         try {
             return deduplicate((ArrayNode) MAPPER.readTree(cucumberJson));
@@ -92,7 +98,9 @@ public final class CucumberJsonMerger {
         return result;
     }
 
-    /** Works out whether a scenario element passed, failed or was skipped. */
+    /**
+     * Works out whether a scenario element passed, failed or was skipped.
+     */
     public static Outcome outcomeOf(JsonNode scenario) {
         boolean anyPassed = false;
         for (String section : List.of("before", "steps", "after")) {
@@ -107,7 +115,9 @@ public final class CucumberJsonMerger {
         return anyPassed ? Outcome.PASSED : Outcome.SKIPPED;
     }
 
-    /** Serialises a report to pretty JSON. */
+    /**
+     * Serialises a report to pretty JSON.
+     */
     public static String toJson(JsonNode node) {
         try {
             return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(node);
@@ -116,7 +126,9 @@ public final class CucumberJsonMerger {
         }
     }
 
-    /** Writes a report to disk, creating parent folders. */
+    /**
+     * Writes a report to disk, creating parent folders.
+     */
     public static void write(JsonNode node, Path target) {
         try {
             Files.createDirectories(target.getParent());

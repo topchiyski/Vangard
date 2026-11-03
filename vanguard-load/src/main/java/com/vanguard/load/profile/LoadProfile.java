@@ -24,7 +24,9 @@ import java.util.Map;
 public record LoadProfile(String name, String endpoint, int users, int rampUpSeconds,
                           int durationSeconds, int thinkTimeMs) {
 
-    /** System property with the path of a JSON file holding the profile, read by the Gatling JVM. */
+    /**
+     * System property with the path of a JSON file holding the profile, read by the Gatling JVM.
+     */
     // WHY: a file, not inline JSON - Windows strips the quotes from JSON passed on a command line.
     public static final String SYSTEM_PROPERTY = "vanguard.load.profile.file";
 
@@ -42,7 +44,9 @@ public record LoadProfile(String name, String endpoint, int users, int rampUpSec
         }
     }
 
-    /** Builds a profile from one row of a Gherkin table; missing columns use sensible defaults. */
+    /**
+     * Builds a profile from one row of a Gherkin table; missing columns use sensible defaults.
+     */
     public static LoadProfile fromTableRow(String name, String endpoint, Map<String, String> row) {
         return new LoadProfile(name, endpoint,
                 Integer.parseInt(row.getOrDefault("users", "10")),
@@ -51,7 +55,9 @@ public record LoadProfile(String name, String endpoint, int users, int rampUpSec
                 Integer.parseInt(row.getOrDefault("thinkTimeMs", "200")));
     }
 
-    /** Applies the smoke caps unless the full profile was requested. */
+    /**
+     * Applies the smoke caps unless the full profile was requested.
+     */
     public LoadProfile limitedTo(String loadProfileMode) {
         if ("full".equalsIgnoreCase(loadProfileMode)) {
             return this;
@@ -63,6 +69,9 @@ public record LoadProfile(String name, String endpoint, int users, int rampUpSec
                 thinkTimeMs);
     }
 
+    /**
+     * The profile as JSON, written to the file the Gatling JVM reads.
+     */
     public String toJson() {
         try {
             return MAPPER.writeValueAsString(this);
@@ -71,7 +80,9 @@ public record LoadProfile(String name, String endpoint, int users, int rampUpSec
         }
     }
 
-    /** Reads the profile inside the Gatling JVM. */
+    /**
+     * Reads the profile inside the Gatling JVM.
+     */
     public static LoadProfile fromSystemProperty() {
         String file = System.getProperty(SYSTEM_PROPERTY);
         if (file == null) {

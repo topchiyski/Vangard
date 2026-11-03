@@ -8,7 +8,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CucumberJsonMergerTest {
 
-    /** A feature where scenario "login" ran twice (failed, then passed on retry). */
+    /**
+     * A feature where scenario "login" ran twice (failed, then passed on retry).
+     */
     public static final String RETRIED_REPORT = """
             [ { "uri": "classpath:features/login.feature", "name": "Login", "elements": [
                 { "type": "background", "name": "bg", "steps": [ { "result": { "status": "passed" } } ] },

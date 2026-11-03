@@ -11,17 +11,23 @@ public final class Endpoints {
     private Endpoints() {
     }
 
-    /** Base URL for API tests. */
+    /**
+     * Base URL for API tests.
+     */
     public static String apiBaseUrl() {
         return orWireMock(ConfigProvider.get().apiBaseUrl());
     }
 
-    /** Base URL for load tests. */
+    /**
+     * Base URL for load tests.
+     */
     public static String loadBaseUrl() {
         return orWireMock(ConfigProvider.get().loadBaseUrl());
     }
 
-    /** Base URL for the web UI. */
+    /**
+     * Base URL for the web UI.
+     */
     public static String uiBaseUrl() {
         return stripTrailingSlash(ConfigProvider.get().uiBaseUrl());
     }

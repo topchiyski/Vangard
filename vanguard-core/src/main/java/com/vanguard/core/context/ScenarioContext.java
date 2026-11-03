@@ -33,7 +33,9 @@ public class ScenarioContext {
     private final Map<ContextKey, Object> values = new EnumMap<>(ContextKey.class);
     private final Map<String, String> named = new LinkedHashMap<>();
 
-    /** Stores a value. Overwrites any previous value for the same key. */
+    /**
+     * Stores a value. Overwrites any previous value for the same key.
+     */
     public void set(ContextKey key, Object value) {
         if (value == null) {
             throw new IllegalArgumentException("Cannot store null for " + key + ". Did the previous call fail?");
@@ -60,17 +62,23 @@ public class ScenarioContext {
         return type.cast(value);
     }
 
-    /** True when a value is stored for the key. */
+    /**
+     * True when a value is stored for the key.
+     */
     public boolean contains(ContextKey key) {
         return values.containsKey(key);
     }
 
-    /** Stores a named value that Gherkin steps can reuse as {@code {name}}. */
+    /**
+     * Stores a named value that Gherkin steps can reuse as {@code {name}}.
+     */
     public void remember(String name, Object value) {
         named.put(name, String.valueOf(value));
     }
 
-    /** Reads a named value stored with {@link #remember(String, Object)}. */
+    /**
+     * Reads a named value stored with {@link #remember(String, Object)}.
+     */
     public String recall(String name) {
         String value = named.get(name);
         if (value == null) {

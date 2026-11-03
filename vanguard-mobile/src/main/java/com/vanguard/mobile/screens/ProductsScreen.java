@@ -2,7 +2,9 @@ package com.vanguard.mobile.screens;
 
 import io.appium.java_client.AppiumBy;
 
-/** The product catalog (start screen of the app). */
+/**
+ * The product catalog (start screen of the app).
+ */
 public class ProductsScreen extends BaseScreen {
 
     private static final MobileLocator SCREEN = MobileLocator.accessibilityId("products screen");
@@ -14,31 +16,42 @@ public class ProductsScreen extends BaseScreen {
             AppiumBy.accessibilityId("cart badge"),
             AppiumBy.accessibilityId("tab bar option cart"));
 
+    /**
+     * Waits until the product list is shown.
+     */
     public ProductsScreen waitUntilShown() {
         waitUntilVisible(SCREEN);
         return this;
     }
 
-    /** Opens a product by its visible name, scrolling down if needed. */
+    /**
+     * Opens a product by its visible name, scrolling down if needed.
+     */
     public void openProduct(String productName) {
         MobileLocator product = productNamed(productName);
         scrollTo(product);
         tap(product);
     }
 
-    /** Scrolls until the product is visible; returns true when found. */
+    /**
+     * Scrolls until the product is visible; returns true when found.
+     */
     public boolean scrollToProduct(String productName) {
         scrollTo(productNamed(productName));
         return isDisplayed(productNamed(productName));
     }
 
-    /** Names of the products visible right now. */
+    /**
+     * Names of the products visible right now.
+     */
     public java.util.List<String> visibleProductNames() {
         waitUntilShown();
         return getTextsNow(PRODUCT_NAMES);
     }
 
-    /** Number on the cart icon; 0 when there is no badge. */
+    /**
+     * Number on the cart icon; 0 when there is no badge.
+     */
     public int cartCount() {
         return getTextsNow(CART_BADGE_TEXT).stream()
                 .filter(t -> t.matches("\\d+"))
@@ -47,6 +60,9 @@ public class ProductsScreen extends BaseScreen {
                 .orElse(0);
     }
 
+    /**
+     * Opens the cart.
+     */
     public void openCart() {
         tap(CART);
     }

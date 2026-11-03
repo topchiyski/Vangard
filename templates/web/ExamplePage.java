@@ -17,19 +17,25 @@ public class ExamplePage extends BasePage {
     private static final By SAVE_BUTTON = By.cssSelector("[data-test='TODO-save']");
     private static final By SUCCESS_MESSAGE = By.cssSelector("[data-test='TODO-message']");
 
-    /** TODO describe what the user does. */
+    /**
+     * TODO describe what the user does.
+     */
     public ExamplePage open() {
         open("/TODO-path");
         return this;
     }
 
-    /** TODO one method per action the user performs. */
+    /**
+     * TODO one method per action the user performs.
+     */
     public void saveName(String name) {
         type(NAME_FIELD, name);
         click(SAVE_BUTTON);
     }
 
-    /** TODO methods that read something return plain data (String, int, BigDecimal, List...). */
+    /**
+     * TODO methods that read something return plain data (String, int, BigDecimal, List...).
+     */
     public String successMessage() {
         return getText(SUCCESS_MESSAGE);
     }

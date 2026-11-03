@@ -42,12 +42,16 @@ public final class WebEyesManager {
     private WebEyesManager() {
     }
 
-    /** Called by hooks before a {@code @visual} scenario. */
+    /**
+     * Called by hooks before a {@code @visual} scenario.
+     */
     public static void startScenario(String scenarioName) {
         TEST_NAME.set(scenarioName);
     }
 
-    /** Takes a visual checkpoint, or logs why it was skipped. */
+    /**
+     * Takes a visual checkpoint, or logs why it was skipped.
+     */
     public static void check(String checkpointName, ICheckSettings settings) {
         Optional<String> skip = VisualSettings.skipReason();
         if (skip.isPresent()) {

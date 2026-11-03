@@ -27,17 +27,23 @@ import static io.gatling.javaapi.http.HttpDsl.http;
  */
 public abstract class ProfiledSimulation extends Simulation {
 
-    /** System property with the target base URL (WireMock by default), set by GatlingRunner. */
+    /**
+     * System property with the target base URL (WireMock by default), set by GatlingRunner.
+     */
     public static final String BASE_URL_PROPERTY = "vanguard.load.baseUrl";
 
     private final LoadProfile profile = LoadProfile.fromSystemProperty();
 
-    /** The load profile from the feature file. */
+    /**
+     * The load profile from the feature file.
+     */
     protected LoadProfile profile() {
         return profile;
     }
 
-    /** HTTP settings shared by all requests: base URL and JSON headers. */
+    /**
+     * HTTP settings shared by all requests: base URL and JSON headers.
+     */
     protected HttpProtocolBuilder httpProtocol() {
         return http.baseUrl(System.getProperty(BASE_URL_PROPERTY))
                 .acceptHeader("application/json")
@@ -56,12 +62,16 @@ public abstract class ProfiledSimulation extends Simulation {
         };
     }
 
-    /** The request path for the profile's endpoint. */
+    /**
+     * The request path for the profile's endpoint.
+     */
     protected String path() {
         return com.vanguard.load.profile.LoadEndpoints.pathFor(profile.endpoint());
     }
 
-    /** Pause between a user's requests. */
+    /**
+     * Pause between a user's requests.
+     */
     protected Duration thinkTime() {
         return Duration.ofMillis(profile.thinkTimeMs());
     }
