@@ -170,3 +170,7 @@ Secrets are never put in files. They come from environment variables.
 - [Cheat Sheet](docs/CHEATSHEET.md): every command and tag on one page
 - [Glossary](docs/GLOSSARY.md)
 - [Mobile Setup](docs/MOBILE_SETUP.md)
+
+## License
+
+MIT - see [LICENSE](LICENSE). The Applitools Eyes SDK used for visual tests has its own commercial license and needs your own Applitools account.
