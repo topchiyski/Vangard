@@ -39,27 +39,37 @@ public abstract class BaseApiClient {
         this.context = context;
     }
 
-    /** GET a path. Path parameters fill {placeholders}: {@code get("/users/{id}", 1)}. */
+    /**
+     * GET a path. Path parameters fill {placeholders}: {@code get("/users/{id}", 1)}.
+     */
     protected Response get(String path, Object... pathParams) {
         return remember(request().get(path, pathParams));
     }
 
-    /** POST an object (serialized to JSON) or a JSON string. */
+    /**
+     * POST an object (serialized to JSON) or a JSON string.
+     */
     protected Response post(String path, Object body, Object... pathParams) {
         return remember(request().body(body).post(path, pathParams));
     }
 
-    /** PUT an object (serialized to JSON) or a JSON string. */
+    /**
+     * PUT an object (serialized to JSON) or a JSON string.
+     */
     protected Response put(String path, Object body, Object... pathParams) {
         return remember(request().body(body).put(path, pathParams));
     }
 
-    /** DELETE a path. */
+    /**
+     * DELETE a path.
+     */
     protected Response delete(String path, Object... pathParams) {
         return remember(request().delete(path, pathParams));
     }
 
-    /** A request with all the defaults above. Use it for anything unusual (headers, query params...). */
+    /**
+     * A request with all the defaults above. Use it for anything unusual (headers, query params...).
+     */
     protected RequestSpecification request() {
         if (spec == null) {
             spec = new RequestSpecBuilder()

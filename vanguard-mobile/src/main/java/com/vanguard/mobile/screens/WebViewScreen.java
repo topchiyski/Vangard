@@ -11,6 +11,9 @@ public class WebViewScreen extends BaseScreen {
     private static final MobileLocator URL = MobileLocator.accessibilityId("URL input field");
     private static final MobileLocator GO = MobileLocator.accessibilityId("Go To Site button");
 
+    /**
+     * Types the URL and opens the site in the web view.
+     */
     public void openSite(String url) {
         waitUntilVisible(SCREEN);
         type(URL, url);
@@ -18,7 +21,9 @@ public class WebViewScreen extends BaseScreen {
         tap(GO);
     }
 
-    /** Title of the web page; call after {@link #switchToWebView()}. */
+    /**
+     * Title of the web page; call after {@link #switchToWebView()}.
+     */
     public String webPageTitle() {
         return driver().getTitle();
     }

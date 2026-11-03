@@ -37,6 +37,9 @@ public class CoreHooks {
         this.context = context;
     }
 
+    /**
+     * Starts the WireMock fake API once, before the first scenario.
+     */
     @BeforeAll
     public static void startMockServer() {
         WireMockManager.start();

@@ -29,29 +29,44 @@ public abstract class BaseScreen {
     protected static final Duration TIMEOUT = Duration.ofSeconds(15);
     private static final int MAX_SCROLLS = 6;
 
-    /** Directions for {@link #swipe(Direction)}. UP moves the content up (= scroll down). */
+    /**
+     * Directions for {@link #swipe(Direction)}. UP moves the content up (= scroll down).
+     */
     public enum Direction { UP, DOWN, LEFT, RIGHT }
 
+    /**
+     * Waits until the element can be tapped, then taps it.
+     */
     protected void tap(MobileLocator locator) {
         waitFor(locator, ExpectedConditions.elementToBeClickable(by(locator)), "tappable").click();
     }
 
+    /**
+     * Waits until the field is visible, clears it and types the text.
+     */
     protected void type(MobileLocator locator, String text) {
         WebElement field = waitFor(locator, ExpectedConditions.visibilityOfElementLocated(by(locator)), "visible");
         field.clear();
         field.sendKeys(text);
     }
 
+    /**
+     * Waits until the element is visible and returns its trimmed text.
+     */
     protected String getText(MobileLocator locator) {
         return waitFor(locator, ExpectedConditions.visibilityOfElementLocated(by(locator)), "visible").getText().trim();
     }
 
-    /** Texts of all matching elements right now (no waiting; empty list if none). */
+    /**
+     * Texts of all matching elements right now (no waiting; empty list if none).
+     */
     protected List<String> getTextsNow(MobileLocator locator) {
         return driver().findElements(by(locator)).stream().map(e -> e.getText().trim()).toList();
     }
 
-    /** True if the element is visible right now. Never throws. */
+    /**
+     * True if the element is visible right now. Never throws.
+     */
     protected boolean isDisplayed(MobileLocator locator) {
         try {
             return driver().findElements(by(locator)).stream().anyMatch(WebElement::isDisplayed);
@@ -60,12 +75,16 @@ public abstract class BaseScreen {
         }
     }
 
-    /** Waits until the element is visible (e.g. to confirm a screen has opened). */
+    /**
+     * Waits until the element is visible (e.g. to confirm a screen has opened).
+     */
     protected void waitUntilVisible(MobileLocator locator) {
         waitFor(locator, ExpectedConditions.visibilityOfElementLocated(by(locator)), "visible");
     }
 
-    /** Swipes across the middle of the screen with one finger (W3C actions; works on both platforms). */
+    /**
+     * Swipes across the middle of the screen with one finger (W3C actions; works on both platforms).
+     */
     public void swipe(Direction direction) {
         Dimension size = driver().manage().window().getSize();
         int midX = size.width / 2;
@@ -87,7 +106,9 @@ public abstract class BaseScreen {
         appium().perform(List.of(swipe));
     }
 
-    /** Scrolls down until the element is visible (max 6 swipes). */
+    /**
+     * Scrolls down until the element is visible (max 6 swipes).
+     */
     protected void scrollTo(MobileLocator locator) {
         for (int i = 0; i < MAX_SCROLLS && !isDisplayed(locator); i++) {
             swipe(Direction.UP);
@@ -95,6 +116,9 @@ public abstract class BaseScreen {
         waitUntilVisible(locator);
     }
 
+    /**
+     * Hides the on-screen keyboard; does nothing when none is shown.
+     */
     protected void hideKeyboard() {
         try {
             if (appium() instanceof AndroidDriver android) {
@@ -107,7 +131,9 @@ public abstract class BaseScreen {
         }
     }
 
-    /** Switches into the first web view (waits until the app has created it). */
+    /**
+     * Switches into the first web view (waits until the app has created it).
+     */
     public void switchToWebView() {
         SupportsContextSwitching contexts = (SupportsContextSwitching) driver();
         String webView = new WebDriverWait(driver(), TIMEOUT).until(d -> {
@@ -117,23 +143,37 @@ public abstract class BaseScreen {
         contexts.context(webView);
     }
 
-    /** Switches back from a web view to the native app. */
+    /**
+     * Switches back from a web view to the native app.
+     */
     public void switchToNative() {
         ((SupportsContextSwitching) driver()).context("NATIVE_APP");
     }
 
+    /**
+     * Rotates the device to landscape or portrait.
+     */
     public void rotate(ScreenOrientation orientation) {
         ((io.appium.java_client.remote.SupportsRotation) driver()).rotate(orientation);
     }
 
+    /**
+     * Runs JavaScript in a web view, or an Appium {@code mobile:} command.
+     */
     protected Object executeScript(String script, Object... args) {
         return ((JavascriptExecutor) driver()).executeScript(script, args);
     }
 
+    /**
+     * True when the scenario runs on Android.
+     */
     protected boolean isAndroid() {
         return appium() instanceof AndroidDriver;
     }
 
+    /**
+     * The current scenario's driver.
+     */
     protected org.openqa.selenium.WebDriver driver() {
         return DriverRegistry.get();
     }

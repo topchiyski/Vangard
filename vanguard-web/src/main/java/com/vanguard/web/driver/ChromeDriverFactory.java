@@ -19,7 +19,9 @@ import java.util.Map;
 @Slf4j
 public final class ChromeDriverFactory {
 
-    /** Fallback metrics when Chrome does not know a device name. */
+    /**
+     * Fallback metrics when Chrome does not know a device name.
+     */
     private static final Map<String, Map<String, Object>> DEVICES = Map.of(
             "Pixel 7", device(412, 915, 2.625,
                     "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -31,6 +33,9 @@ public final class ChromeDriverFactory {
     private ChromeDriverFactory() {
     }
 
+    /**
+     * Creates Chrome in desktop size or with mobile emulation.
+     */
     public static WebDriver create(BrowserMode mode) {
         if (mode == BrowserMode.DESKTOP) {
             ChromeOptions options = baseOptions();

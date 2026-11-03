@@ -20,7 +20,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** Proves the Xray exporter talks to Xray correctly, using a local fake Xray server. */
+/**
+ * Proves the Xray exporter talks to Xray correctly, using a local fake Xray server.
+ */
 public class XrayResultsExporterTest {
 
     private WireMockServer xray;

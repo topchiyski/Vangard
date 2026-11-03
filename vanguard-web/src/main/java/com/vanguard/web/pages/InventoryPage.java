@@ -5,10 +5,14 @@ import org.openqa.selenium.By;
 import java.math.BigDecimal;
 import java.util.List;
 
-/** The product list shown after login (/inventory.html). */
+/**
+ * The product list shown after login (/inventory.html).
+ */
 public class InventoryPage extends BasePage {
 
-    /** Every price on the page. Public so visual checks can ignore prices (they change often). */
+    /**
+     * Every price on the page. Public so visual checks can ignore prices (they change often).
+     */
     public static final By PRICES = By.cssSelector(".inventory_item_price");
 
     private static final By TITLE = By.cssSelector("[data-test='title']");
@@ -19,41 +23,60 @@ public class InventoryPage extends BasePage {
     private static final By MENU_ITEMS = By.cssSelector(".bm-item-list a");
     private static final By CLOSE_MENU = By.id("react-burger-cross-btn");
 
-    /** Waits until the inventory page is shown. */
+    /**
+     * Waits until the inventory page is shown.
+     */
     public InventoryPage waitUntilLoaded() {
         waitForUrlContains("inventory.html");
         return this;
     }
 
+    /**
+     * The page heading, e.g. "Products".
+     */
     public String title() {
         return getText(TITLE);
     }
 
+    /**
+     * Names of all products, in the order shown.
+     */
     public List<String> productNames() {
         return getTexts(PRODUCT_NAMES);
     }
 
-    /** Clicks "Add to cart" for the product with this exact name. */
+    /**
+     * Clicks "Add to cart" for the product with this exact name.
+     */
     public void addToCart(String productName) {
         click(productButton(productName));
     }
 
-    /** The price of a product as shown in the shop, e.g. 29.99. */
+    /**
+     * The price of a product as shown in the shop, e.g. 29.99.
+     */
     public BigDecimal priceOf(String productName) {
         By price = By.xpath(productCard(productName) + "//*[@data-test='inventory-item-price']");
         return new BigDecimal(getText(price).replace("$", ""));
     }
 
-    /** Number shown on the cart icon; 0 when the badge is hidden. */
+    /**
+     * Number shown on the cart icon; 0 when the badge is hidden.
+     */
     public int cartBadgeCount() {
         return isDisplayed(CART_BADGE) ? Integer.parseInt(getText(CART_BADGE)) : 0;
     }
 
+    /**
+     * Opens the cart.
+     */
     public void openCart() {
         click(CART_LINK);
     }
 
-    /** Opens the burger menu, reads its entries (e.g. "All Items", "Logout") and closes it again. */
+    /**
+     * Opens the burger menu, reads its entries (e.g. "All Items", "Logout") and closes it again.
+     */
     public List<String> menuEntries() {
         click(MENU_BUTTON);
         // WHY: right after login the burger button can be clicked before its handler is attached,
@@ -68,7 +91,9 @@ public class InventoryPage extends BasePage {
         return entries;
     }
 
-    /** Width of the browser viewport in CSS pixels. */
+    /**
+     * Width of the browser viewport in CSS pixels.
+     */
     public long viewportWidth() {
         return ((Number) executeScript("return window.innerWidth;")).longValue();
     }

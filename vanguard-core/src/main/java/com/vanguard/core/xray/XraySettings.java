@@ -16,15 +16,23 @@ import com.vanguard.core.config.FrameworkConfig;
 public record XraySettings(String mode, String baseUrl, String clientId, String clientSecret,
                            String token, String projectKey) {
 
+    /**
+     * True for Xray Cloud, false for Xray Data Center ({@code xray.mode=datacenter}).
+     */
     public boolean isCloud() {
         return !"datacenter".equalsIgnoreCase(mode);
     }
 
+    /**
+     * The base URL without a trailing "/".
+     */
     public String normalizedBaseUrl() {
         return baseUrl.endsWith("/") ? baseUrl.substring(0, baseUrl.length() - 1) : baseUrl;
     }
 
-    /** Reads settings from config; secrets fall back to XRAY_CLIENT_ID / XRAY_CLIENT_SECRET / XRAY_TOKEN. */
+    /**
+     * Reads settings from config; secrets fall back to XRAY_CLIENT_ID / XRAY_CLIENT_SECRET / XRAY_TOKEN.
+     */
     public static XraySettings fromConfig() {
         FrameworkConfig c = ConfigProvider.get();
         return new XraySettings(

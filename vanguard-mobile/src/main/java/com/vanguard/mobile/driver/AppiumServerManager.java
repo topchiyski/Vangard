@@ -26,7 +26,9 @@ public final class AppiumServerManager {
     private AppiumServerManager() {
     }
 
-    /** Returns the URL of a running Appium server, starting one if needed. */
+    /**
+     * Returns the URL of a running Appium server, starting one if needed.
+     */
     public static synchronized URL ensureRunning() {
         URI configured = URI.create(ConfigProvider.get().appiumUrl());
         if (isUp(configured)) {

@@ -12,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record UserDto(Integer id, String name, String username, String email) {
 
-    /** A user to create: no id yet. */
+    /**
+     * A user to create: no id yet.
+     */
     public static UserDto newUser(String name, String username, String email) {
         return new UserDto(null, name, username, email);
     }

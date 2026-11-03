@@ -17,6 +17,9 @@ public class LoginScreen extends BaseScreen {
     private static final MobileLocator LOGIN_BUTTON = MobileLocator.accessibilityId("Login button");
     private static final MobileLocator ERROR = MobileLocator.accessibilityId("generic-error-message");
 
+    /**
+     * Logs in as the given demo user (the demo password is filled in for you).
+     */
     public void loginAs(String username) {
         waitUntilVisible(SCREEN);
         type(USERNAME, username);
@@ -25,6 +28,9 @@ public class LoginScreen extends BaseScreen {
         tap(LOGIN_BUTTON);
     }
 
+    /**
+     * The error shown after a failed login.
+     */
     public String errorMessage() {
         return getText(ERROR);
     }

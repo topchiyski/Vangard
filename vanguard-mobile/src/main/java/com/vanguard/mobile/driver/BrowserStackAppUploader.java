@@ -30,6 +30,9 @@ public final class BrowserStackAppUploader {
     private BrowserStackAppUploader() {
     }
 
+    /**
+     * Uploads the app to BrowserStack once per run and returns its {@code bs://} id.
+     */
     public static String upload(Path app, String username, String accessKey) {
         return CACHE.computeIfAbsent(app.toAbsolutePath(), path -> doUpload(path, username, accessKey));
     }
@@ -73,7 +76,9 @@ public final class BrowserStackAppUploader {
         }
     }
 
-    /** True when the configured app is already a BrowserStack id. */
+    /**
+     * True when the configured app is already a BrowserStack id.
+     */
     static boolean isBrowserStackId(String app) {
         return app.startsWith("bs://");
     }

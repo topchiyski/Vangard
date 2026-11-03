@@ -21,12 +21,16 @@ public final class DriverRegistry {
     private DriverRegistry() {
     }
 
-    /** Registers how to create the driver for the current scenario. Called by module hooks. */
+    /**
+     * Registers how to create the driver for the current scenario. Called by module hooks.
+     */
     public static void registerFactory(Supplier<? extends WebDriver> factory) {
         FACTORY.set(factory);
     }
 
-    /** Returns the current driver, creating it on first use. */
+    /**
+     * Returns the current driver, creating it on first use.
+     */
     public static WebDriver get() {
         WebDriver driver = DRIVER.get();
         if (driver == null) {
@@ -41,12 +45,16 @@ public final class DriverRegistry {
         return driver;
     }
 
-    /** True when a driver was created for the current scenario. */
+    /**
+     * True when a driver was created for the current scenario.
+     */
     public static boolean isActive() {
         return DRIVER.get() != null;
     }
 
-    /** Quits the driver (if any) and clears the thread. Called by the shared {@code @After} hook. */
+    /**
+     * Quits the driver (if any) and clears the thread. Called by the shared {@code @After} hook.
+     */
     public static void quit() {
         WebDriver driver = DRIVER.get();
         try {

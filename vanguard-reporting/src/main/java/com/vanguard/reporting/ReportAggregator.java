@@ -51,6 +51,9 @@ public final class ReportAggregator {
         this.since = since;
     }
 
+    /**
+     * Command-line entry point (CI): {@code --root <dir> [--input <dir>] [--since <ISO instant>]}.
+     */
     public static void main(String[] args) {
         Path root = Path.of(".");
         Path input = null;
@@ -93,7 +96,9 @@ public final class ReportAggregator {
         }
     }
 
-    /** Every module's target/cucumber-reports/cucumber.json (fresh ones only when --since is given). */
+    /**
+     * Every module's target/cucumber-reports/cucumber.json (fresh ones only when --since is given).
+     */
     private List<Path> findCucumberReports(Path ownOutput) {
         try (Stream<Path> files = Files.walk(input)) {
             return files
@@ -121,7 +126,9 @@ public final class ReportAggregator {
         }
     }
 
-    /** allure-results sits next to cucumber-reports in each module's target folder. */
+    /**
+     * allure-results sits next to cucumber-reports in each module's target folder.
+     */
     private void copyAllureResults(List<Path> reports, Path target) {
         try {
             if (Files.exists(target)) {
@@ -149,7 +156,9 @@ public final class ReportAggregator {
         }
     }
 
-    /** Prints passed/failed/skipped per module and returns the number of failed scenarios. */
+    /**
+     * Prints passed/failed/skipped per module and returns the number of failed scenarios.
+     */
     private int printSummary(List<Path> reports) {
         Map<String, Map<Outcome, Integer>> perModule = new TreeMap<>();
         List<String> failures = new ArrayList<>();
