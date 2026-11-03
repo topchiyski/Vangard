@@ -78,7 +78,7 @@ mvn verify -pl vanguard-web,vanguard-reporting -am -Dbrowser.mode=mobile
 # 6. Mobile tests (needs a device or emulator, see docs/MOBILE_SETUP.md)
 mvn verify -Pmobile -pl vanguard-mobile,vanguard-reporting -am -Dmobile.platform=ios
 
-# 7. Full load (default runs are capped at 5 users / 15 s)
+# 7. Full load (default runs are capped at 5 users / 8 s)
 mvn verify -pl vanguard-load,vanguard-reporting -am -Dload.profile=full
 
 # 8. Open the combined HTML report in your browser
@@ -145,7 +145,7 @@ Secrets are never put in files. They come from environment variables.
 | `mobile.ios.device` / `.version` | `iPhone 15` / `17.5` | iOS simulator or device |
 | `mobile.android.app` / `mobile.ios.app` | `apps/android/mda.apk` / `apps/ios/mda.app.zip` | App file, or a BrowserStack `bs://` id |
 | `browserstack.build.name` | `Vanguard - <env>` | Build name on BrowserStack |
-| `load.profile` | `smoke` | `smoke` (≤ 5 users, ≤ 15 s) or `full` |
+| `load.profile` | `smoke` | `smoke` (≤ 5 users, ≤ 8 s) or `full` |
 | `visual.enabled` | `false` | Applitools checks; also needs `APPLITOOLS_API_KEY` |
 | `visual.runner` | `ufg` | `ufg` (cloud: desktop + phone) or `classic` |
 | `visual.batch.name` | `Vanguard - <env>` | Batch name in Applitools |

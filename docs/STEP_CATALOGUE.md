@@ -68,7 +68,8 @@ The shop examples also offer `Given I am logged in as "<user>"` and `When I add 
 | Step | Example |
 |---|---|
 | `Given a load profile "<name>" against the "<endpoint>" endpoint:` + table | see below |
-| `When I run the "<Simulation>" load test` | `When I run the "ApiBrowseSimulation" load test` |
+| `When I run the load test` | users send GET requests to the profile's endpoint: use this first |
+| `When I run the "<Simulation>" load test` | `When I run the "CreateUserSimulation" load test` (your own journey) |
 | `Then the error rate is below <n> percent` | `Then the error rate is below 1 percent` |
 | `Then the <50\|95\|99>th percentile response time is below <ms> ms` | `Then the 95th percentile response time is below 500 ms` |
 | `Then the mean response time is below <ms> ms` | |

@@ -30,6 +30,9 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
     // "> request count     |     97 |     97 |      -"
     private static final Pattern ROW = Pattern.compile("^> (.+?)\\s*\\|\\s*([\\d.]+|-)\\s*\\|\\s*([\\d.]+|-)\\s*\\|\\s*([\\d.]+|-)\\s*$");
 
+    private static final String FORMAT_CHANGED = "Gatling's console summary format changed: update LoadResult "
+            + "(see vanguard-load/CLAUDE.md) - ";
+
     /** Percentage of failed requests, 0-100. */
     public double errorRatePercent() {
         return totalRequests == 0 ? 0 : failedRequests * 100.0 / totalRequests;
@@ -63,9 +66,11 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
     static LoadResult fromReport(Path reportDir, Path consoleLog) {
         Map<String, String> totals = new HashMap<>();
         Map<String, String> failed = new HashMap<>();
+        boolean sawSummary = false;
         try {
             List<String> lines = Files.readAllLines(consoleLog);
             for (String line : lines) {
+                sawSummary |= line.contains("Global Information");
                 Matcher m = ROW.matcher(line.trim());
                 if (m.matches()) {
                     totals.putIfAbsent(m.group(1).trim(), m.group(2));
@@ -75,27 +80,34 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
         } catch (IOException e) {
             throw new UncheckedIOException("Cannot read Gatling output " + consoleLog, e);
         }
-        if (!totals.containsKey("request count")) {
-            throw new IllegalStateException("Gatling produced no statistics - did any request run? See " + consoleLog);
+        if (totals.isEmpty()) {
+            throw new IllegalStateException(sawSummary
+                    ? FORMAT_CHANGED + "no summary row could be read. See " + consoleLog
+                    : "Gatling produced no statistics - did any request run? See " + consoleLog);
         }
         return new LoadResult(
-                number(totals, "request count"),
-                number(failed, "request count"),
-                number(totals, "mean response time (ms)"),
-                number(totals, "response time 50th percentile (ms)"),
-                number(totals, "response time 95th percentile (ms)"),
-                number(totals, "response time 99th percentile (ms)"),
-                number(totals, "max response time (ms)"),
-                decimal(totals, "mean throughput (rps)"),
+                number(totals, "request count", consoleLog),
+                number(failed, "request count", consoleLog),
+                number(totals, "mean response time (ms)", consoleLog),
+                number(totals, "response time 50th percentile (ms)", consoleLog),
+                number(totals, "response time 95th percentile (ms)", consoleLog),
+                number(totals, "response time 99th percentile (ms)", consoleLog),
+                number(totals, "max response time (ms)", consoleLog),
+                decimal(totals, "mean throughput (rps)", consoleLog),
                 reportDir, consoleLog);
     }
 
-    private static long number(Map<String, String> values, String key) {
-        return Math.round(decimal(values, key));
+    private static long number(Map<String, String> values, String label, Path consoleLog) {
+        return Math.round(decimal(values, label, consoleLog));
     }
 
-    private static double decimal(Map<String, String> values, String key) {
-        String value = values.get(key);
-        return value == null || "-".equals(value) ? 0 : Double.parseDouble(value);
+    // WHY: a missing row must fail - reading it as 0 would make "below 500 ms" checks pass silently.
+    private static double decimal(Map<String, String> values, String label, Path consoleLog) {
+        String value = values.get(label);
+        if (value == null) {
+            throw new IllegalStateException(FORMAT_CHANGED + "no row \"" + label + "\". See " + consoleLog);
+        }
+        // Gatling prints "-" for an empty column, e.g. when no request failed.
+        return "-".equals(value) ? 0 : Double.parseDouble(value);
     }
 }

@@ -3,6 +3,7 @@ package com.vanguard.load.steps;
 import com.vanguard.core.config.ConfigProvider;
 import com.vanguard.core.context.ContextKey;
 import com.vanguard.core.context.ScenarioContext;
+import com.vanguard.load.profile.LoadEndpoints;
 import com.vanguard.load.profile.LoadProfile;
 import com.vanguard.load.runner.GatlingRunner;
 import com.vanguard.load.runner.LoadResult;
@@ -29,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Given a load profile "browse" against the "products" endpoint:
  *   | users | rampUpSeconds | durationSeconds |
  *   | 50    | 30            | 120             |
- * When I run the "ApiBrowseSimulation" load test
+ * When I run the load test
  * Then the error rate is below 1 percent
  * And the 95th percentile response time is below 500 ms
  * </pre>
@@ -37,12 +38,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 public class LoadSteps {
 
+    /** Used by "When I run the load test": users send GET requests to the profile's endpoint. */
+    private static final String DEFAULT_SIMULATION = "ApiBrowseSimulation";
+
     private final ScenarioContext context;
-    private final GatlingRunner runner = new GatlingRunner();
+    private final GatlingRunner runner;
     private Scenario scenario;
 
-    public LoadSteps(ScenarioContext context) {
+    public LoadSteps(ScenarioContext context, GatlingRunner runner) {
         this.context = context;
+        this.runner = runner;
     }
 
     @Before("@load")
@@ -52,6 +57,8 @@ public class LoadSteps {
 
     @Given("a load profile {string} against the {string} endpoint:")
     public void aLoadProfile(String name, String endpoint, DataTable table) {
+        // WHY: fails here, in seconds, instead of deep inside the separate Gatling JVM.
+        LoadEndpoints.pathFor(endpoint);
         Map<String, String> row = table.asMaps().get(0);
         LoadProfile requested = LoadProfile.fromTableRow(name, endpoint, row);
         LoadProfile effective = requested.limitedTo(ConfigProvider.get().loadProfile());
@@ -60,6 +67,11 @@ public class LoadSteps {
                     effective.users(), effective.durationSeconds());
         }
         context.set(ContextKey.LOAD_PROFILE, effective);
+    }
+
+    @When("I run the load test")
+    public void iRunTheLoadTest() {
+        iRunTheLoadTest(DEFAULT_SIMULATION);
     }
 
     @When("I run the {string} load test")
