@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Unit tests of the load framework itself; run by the "unit-tests" Surefire execution in vanguard-load/pom.xml. -->
+<suite name="Vanguard Load Unit Tests">
+    <test name="unit">
+        <classes>
+            <class name="com.vanguard.load.runner.LoadResultTest"/>
+            <class name="com.vanguard.load.profile.LoadProfileTest"/>
+        </classes>
+    </test>
+</suite>

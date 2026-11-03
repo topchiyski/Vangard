@@ -44,4 +44,31 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <executions>
+                    <!-- WHY: framework unit tests must fail the build (load scenarios are judged by vanguard-reporting),
+                         and they run before the slow load scenarios. -->
+                    <execution>
+                        <id>unit-tests</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${project.build.testOutputDirectory}/testng-unit.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <testFailureIgnore>false</testFailureIgnore>
+                            <reportsDirectory>${project.build.directory}/surefire-reports-unit</reportsDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

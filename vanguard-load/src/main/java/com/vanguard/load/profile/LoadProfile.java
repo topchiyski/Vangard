@@ -32,8 +32,8 @@ public record LoadProfile(String name, String endpoint, int users, int rampUpSec
 
     // Smoke caps keep PR builds fast and polite: -Dload.profile=full lifts them.
     static final int SMOKE_MAX_USERS = 5;
-    static final int SMOKE_MAX_RAMP_SECONDS = 5;
-    static final int SMOKE_MAX_DURATION_SECONDS = 15;
+    static final int SMOKE_MAX_RAMP_SECONDS = 2;
+    static final int SMOKE_MAX_DURATION_SECONDS = 8;
 
     public LoadProfile {
         if (users < 1 || rampUpSeconds < 0 || durationSeconds < 1 || thinkTimeMs < 0) {

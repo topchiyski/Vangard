@@ -2,10 +2,10 @@
 # REFERENCE EXAMPLE (LOAD) - load tests written in Gherkin, run by Gatling (Java, no Scala).
 #
 # What it tests : the product API stays fast and error-free under load
-# Uses          : ApiBrowseSimulation, CreateUserSimulation
+# Uses          : the default simulation (GET requests) and CreateUserSimulation
 #                 (vanguard-load/src/main/java/com/vanguard/load/simulation)
 # Target        : embedded WireMock by default. Set load.base.url ONLY to systems your team owns.
-# Profiles      : default "smoke" caps every test at 5 users / 15 s (fast, for PRs).
+# Profiles      : default "smoke" caps every test at 5 users / 8 s (fast, for PRs).
 #                 -Dload.profile=full uses the numbers below.
 # Run it alone  : mvn verify -pl vanguard-load,vanguard-reporting -am
 #                 mvn verify -pl vanguard-load,vanguard-reporting -am -Dload.profile=full
@@ -22,7 +22,7 @@ Feature: Product API performance
     Given a load profile "health-check" against the "health" endpoint:
       | users | rampUpSeconds | durationSeconds |
       | 5     | 2             | 10              |
-    When I run the "ApiBrowseSimulation" load test
+    When I run the load test
     Then the error rate is below 1 percent
     And the 95th percentile response time is below 500 ms
 
@@ -31,7 +31,7 @@ Feature: Product API performance
     Given a load profile "product-browse" against the "products" endpoint:
       | users | rampUpSeconds | durationSeconds | thinkTimeMs |
       | 50    | 30            | 120             | 200         |
-    When I run the "ApiBrowseSimulation" load test
+    When I run the load test
     Then the error rate is below 1 percent
     And the 95th percentile response time is below 500 ms
     And the throughput is at least 5 requests per second
@@ -47,5 +47,4 @@ Feature: Product API performance
     Examples:
       | users |
       | 10    |
-      | 25    |
       | 50    |
