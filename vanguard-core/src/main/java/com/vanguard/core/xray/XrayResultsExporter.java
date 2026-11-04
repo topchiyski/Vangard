@@ -38,6 +38,9 @@ public class XrayResultsExporter {
     private final XraySettings settings;
     private final HttpClient http;
 
+    /**
+     * Uploads with a default HTTP/1.1 client.
+     */
     public XrayResultsExporter(XraySettings settings) {
         // WHY: HTTP/1.1 avoids the h2c upgrade on plain http:// that proxies and mock servers mishandle.
         this(settings, HttpClient.newBuilder()
@@ -46,6 +49,9 @@ public class XrayResultsExporter {
                 .build());
     }
 
+    /**
+     * Uploads with the given HTTP client (unit tests pass one that talks to a mock server).
+     */
     public XrayResultsExporter(XraySettings settings, HttpClient http) {
         this.settings = settings;
         this.http = http;
@@ -123,7 +129,9 @@ public class XrayResultsExporter {
         return http.send(request.build(), HttpResponse.BodyHandlers.ofString());
     }
 
-    /** Cloud returns {"key": "QA-1"}; Data Center returns {"testExecIssue": {"key": "QA-1"}}. */
+    /**
+     * Cloud returns {"key": "QA-1"}; Data Center returns {"testExecIssue": {"key": "QA-1"}}.
+     */
     static Optional<String> executionKey(String responseBody) throws IOException {
         JsonNode node = MAPPER.readTree(responseBody);
         if (node == null) {

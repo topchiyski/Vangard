@@ -41,7 +41,7 @@ When I send a GET request to "/users/{userId}"
 | `Then the page URL contains "<text>"` | `Then the page URL contains "checkout"` |
 | `Then the page title is "<title>"` | `Then the page title is "Swag Labs"` |
 
-Business actions (logging in, adding to the cart) belong in your own steps backed by Page Objects. See [Recipe 1](JUNIOR_ONBOARDING_GUIDE.md#recipe-1-a-new-web-test).
+Business actions (logging in, adding to the cart) belong in your own steps backed by Page Objects. See [Recipe 1](ONBOARDING_GUIDE.md#recipe-1-a-new-web-test).
 The shop examples also offer `Given I am logged in as "<user>"` and `When I add the "<product>" to the cart` in `ShoppingSteps`.
 
 **Visual** (scenarios tagged `@visual`; skipped with a warning when visual testing is off):

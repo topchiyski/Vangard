@@ -38,7 +38,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 public class LoadSteps {
 
-    /** Used by "When I run the load test": users send GET requests to the profile's endpoint. */
+    /**
+     * Used by "When I run the load test": users send GET requests to the profile's endpoint.
+     */
     private static final String DEFAULT_SIMULATION = "ApiBrowseSimulation";
 
     private final ScenarioContext context;

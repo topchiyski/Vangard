@@ -18,12 +18,16 @@ public class ExampleClient extends BaseApiClient {
         super(context);
     }
 
-    /** GET /todos/{id} - TODO */
+    /**
+     * GET /todos/{id} - TODO
+     */
     public Response getTodo(int id) {
         return get("/todos/{id}", id);
     }
 
-    /** POST /todos - TODO */
+    /**
+     * POST /todos - TODO
+     */
     public Response createTodo(ExampleDto todo) {
         return post("/todos", todo);
     }

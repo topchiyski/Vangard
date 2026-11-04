@@ -91,7 +91,9 @@ public class LoadResultTest {
                 LoadResultTest.class.getResource("/gatling/console-summary-3.16.txt")).toURI());
     }
 
-    /** The fixture with every {@code from} replaced by {@code to}. */
+    /**
+     * The fixture with every {@code from} replaced by {@code to}.
+     */
     private static Path variant(String from, String to) throws IOException, URISyntaxException {
         Path log = Files.createTempFile("gatling", ".log");
         return Files.writeString(log, Files.readString(fixture()).replace(from, to));

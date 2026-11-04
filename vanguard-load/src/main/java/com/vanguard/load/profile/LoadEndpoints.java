@@ -17,6 +17,9 @@ public final class LoadEndpoints {
     private LoadEndpoints() {
     }
 
+    /**
+     * The request path for an endpoint name, or the value itself when it starts with "/".
+     */
     public static String pathFor(String endpoint) {
         if (endpoint.startsWith("/")) {
             return endpoint;

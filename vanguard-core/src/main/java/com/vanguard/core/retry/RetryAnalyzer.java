@@ -23,6 +23,9 @@ public class RetryAnalyzer implements IRetryAnalyzer {
     private final Map<List<Object>, AtomicInteger> attempts = new ConcurrentHashMap<>();
     private final int maxRetries;
 
+    /**
+     * Uses {@code retry.max.count} from the configuration.
+     */
     public RetryAnalyzer() {
         this(ConfigProvider.get().retryMaxCount());
     }
@@ -45,7 +48,9 @@ public class RetryAnalyzer implements IRetryAnalyzer {
         return false;
     }
 
-    /** Undefined or ambiguous steps fail the same way every time: retrying only wastes time. */
+    /**
+     * Undefined or ambiguous steps fail the same way every time: retrying only wastes time.
+     */
     private static boolean isNeverFixedByRetry(Throwable failure) {
         String type = failure == null ? "" : failure.getClass().getSimpleName();
         return type.equals("UndefinedStepException") || type.startsWith("AmbiguousStepDefinitions");

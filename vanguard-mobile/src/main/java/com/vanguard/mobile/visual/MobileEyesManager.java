@@ -28,10 +28,16 @@ public final class MobileEyesManager {
     private MobileEyesManager() {
     }
 
+    /**
+     * Remembers the scenario name; Applitools opens lazily at the first check.
+     */
     public static void startScenario(String scenarioName) {
         TEST_NAME.set(scenarioName);
     }
 
+    /**
+     * Takes a visual checkpoint, or logs a warning and skips when visual checks are off.
+     */
     public static void check(String checkpointName, ICheckSettings settings) {
         if (VisualTestSupport.shouldSkipCheckpoint(checkpointName)) {
             return;
@@ -39,6 +45,9 @@ public final class MobileEyesManager {
         eyes().check(checkpointName, settings);
     }
 
+    /**
+     * Closes the Applitools test of this scenario and fails it when visual differences were found.
+     */
     public static void finishScenario() {
         Eyes eyes = EYES.get();
         TEST_NAME.remove();

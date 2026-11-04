@@ -5,7 +5,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.ScreenOrientation;
 
-/** Ready-made mobile steps (docs/STEP_CATALOGUE.md). */
+/**
+ * Ready-made mobile steps (docs/STEP_CATALOGUE.md).
+ */
 public class MobileCommonSteps {
 
     private final ProductsScreen products;
@@ -14,7 +16,9 @@ public class MobileCommonSteps {
         this.products = products;
     }
 
-    /** Starts the app (Appium launches it with the session) and waits for the first screen. */
+    /**
+     * Starts the app (Appium launches it with the session) and waits for the first screen.
+     */
     @Given("the app is launched")
     public void theAppIsLaunched() {
         products.waitUntilShown();

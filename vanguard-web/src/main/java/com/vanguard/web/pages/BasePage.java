@@ -29,35 +29,47 @@ public abstract class BasePage {
 
     protected static final Duration TIMEOUT = Duration.ofSeconds(10);
 
-    /** Opens a path of the web app, e.g. {@code open("/inventory.html")}. */
+    /**
+     * Opens a path of the web app, e.g. {@code open("/inventory.html")}.
+     */
     protected void open(String path) {
         driver().get(Endpoints.uiBaseUrl() + (path.startsWith("/") ? path : "/" + path));
     }
 
-    /** Waits until the element is clickable, then clicks it. */
+    /**
+     * Waits until the element is clickable, then clicks it.
+     */
     protected void click(By locator) {
         waitFor(ExpectedConditions.elementToBeClickable(locator), locator, "clickable").click();
     }
 
-    /** Waits for the field, clears it, then types the text. */
+    /**
+     * Waits for the field, clears it, then types the text.
+     */
     protected void type(By locator, String text) {
         WebElement field = waitFor(ExpectedConditions.visibilityOfElementLocated(locator), locator, "visible");
         field.clear();
         field.sendKeys(text);
     }
 
-    /** Waits for the element and returns its visible text, trimmed. */
+    /**
+     * Waits for the element and returns its visible text, trimmed.
+     */
     protected String getText(By locator) {
         return waitFor(ExpectedConditions.visibilityOfElementLocated(locator), locator, "visible").getText().trim();
     }
 
-    /** Returns the visible text of every matching element (waits for at least one). */
+    /**
+     * Returns the visible text of every matching element (waits for at least one).
+     */
     protected List<String> getTexts(By locator) {
         return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator), locator, "visible")
                 .stream().map(e -> e.getText().trim()).toList();
     }
 
-    /** True if the element is visible right now. Never throws, never waits long. */
+    /**
+     * True if the element is visible right now. Never throws, never waits long.
+     */
     protected boolean isDisplayed(By locator) {
         try {
             return driver().findElements(locator).stream().anyMatch(WebElement::isDisplayed);
@@ -66,7 +78,9 @@ public abstract class BasePage {
         }
     }
 
-    /** True if the element becomes visible within the timeout; false (no exception) otherwise. */
+    /**
+     * True if the element becomes visible within the timeout; false (no exception) otherwise.
+     */
     protected boolean appearsWithin(By locator, Duration timeout) {
         try {
             new WebDriverWait(driver(), timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -76,12 +90,16 @@ public abstract class BasePage {
         }
     }
 
-    /** Waits until the element is gone or hidden (e.g. a closing menu or a spinner). */
+    /**
+     * Waits until the element is gone or hidden (e.g. a closing menu or a spinner).
+     */
     protected void waitUntilHidden(By locator) {
         waitFor(ExpectedConditions.invisibilityOfElementLocated(locator), locator, "hidden");
     }
 
-    /** Waits until the current URL contains the text. */
+    /**
+     * Waits until the current URL contains the text.
+     */
     protected void waitForUrlContains(String fraction) {
         try {
             new WebDriverWait(driver(), TIMEOUT).until(ExpectedConditions.urlContains(fraction));
@@ -91,22 +109,30 @@ public abstract class BasePage {
         }
     }
 
-    /** The URL currently shown in the browser. */
+    /**
+     * The URL currently shown in the browser.
+     */
     protected String currentUrl() {
         return driver().getCurrentUrl();
     }
 
-    /** The page title (the browser tab text). */
+    /**
+     * The page title (the browser tab text).
+     */
     protected String title() {
         return driver().getTitle();
     }
 
-    /** Runs JavaScript in the page, e.g. {@code executeScript("return window.innerWidth")}. */
+    /**
+     * Runs JavaScript in the page, e.g. {@code executeScript("return window.innerWidth")}.
+     */
     protected Object executeScript(String script, Object... args) {
         return ((JavascriptExecutor) driver()).executeScript(script, args);
     }
 
-    /** The current browser. Prefer the helpers above; use this only for things they don't cover. */
+    /**
+     * The current browser. Prefer the helpers above; use this only for things they don't cover.
+     */
     protected WebDriver driver() {
         return DriverRegistry.get();
     }

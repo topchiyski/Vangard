@@ -7,7 +7,7 @@ Load tests written in Gherkin and run by **Gatling (Java DSL, no Scala)** in a s
 | Reference example | `src/test/resources/features/api_load.feature` + `simulation/ApiBrowseSimulation.java` |
 |---|---|
 | Template | `templates/load/` |
-| Recipe | [Recipe 4](../docs/JUNIOR_ONBOARDING_GUIDE.md#recipe-4-a-new-load-test) |
+| Recipe | [Recipe 4](../docs/ONBOARDING_GUIDE.md#recipe-4-a-new-load-test) |
 
 Run:
 ```bash

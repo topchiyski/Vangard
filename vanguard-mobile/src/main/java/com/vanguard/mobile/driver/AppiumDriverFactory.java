@@ -29,6 +29,9 @@ public final class AppiumDriverFactory {
     private AppiumDriverFactory() {
     }
 
+    /**
+     * Creates an Appium driver on the local Appium server or on BrowserStack ({@code mobile.target}).
+     */
     public static WebDriver create(MobilePlatform platform, AppType appType, String scenarioName) {
         FrameworkConfig config = ConfigProvider.get();
         boolean cloud = "browserstack".equalsIgnoreCase(config.mobileTarget());
@@ -81,7 +84,9 @@ public final class AppiumDriverFactory {
         return options;
     }
 
-    /** A local file path, or a bs:// id (uploading the local file to BrowserStack when needed). */
+    /**
+     * A local file path, or a bs:// id (uploading the local file to BrowserStack when needed).
+     */
     private static String app(String configured, boolean cloud, FrameworkConfig config) {
         if (BrowserStackAppUploader.isBrowserStackId(configured)) {
             return configured;

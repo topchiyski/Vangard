@@ -4,7 +4,7 @@ Vanguard is a test automation platform for **API, web, mobile (Android + iOS), l
 Every test is written in **Gherkin** (`Given / When / Then`).
 All test types share one configuration, one HTML report (Allure) and one Jira Xray upload.
 
-> **New here?** Start with the [Junior Onboarding Guide](docs/JUNIOR_ONBOARDING_GUIDE.md). It gets you from zero to your first passing test.
+> **New here?** Start with the [Onboarding Guide](docs/ONBOARDING_GUIDE.md). It gets you from zero to your first passing test.
 
 ## How it fits together
 
@@ -114,7 +114,7 @@ vanguard/
 ├── vanguard-reporting/          runs last: merged Allure results, Xray upload, pass/fail verdict
 ├── templates/                   copy-paste starters (compiled, never run)
 ├── scripts/                     download-sample-apps for mobile
-├── docs/                        guides (start with JUNIOR_ONBOARDING_GUIDE.md)
+├── docs/                        guides (start with ONBOARDING_GUIDE.md)
 └── .github/workflows/           CI pipeline
 ```
 
@@ -163,10 +163,14 @@ Secrets are never put in files. They come from environment variables.
 
 ## More documentation
 
-- [Junior Onboarding Guide](docs/JUNIOR_ONBOARDING_GUIDE.md): recipes for every test type
+- [Onboarding Guide](docs/ONBOARDING_GUIDE.md): recipes for every test type
 - [Step Catalogue](docs/STEP_CATALOGUE.md): ready-made steps you can use without writing Java
 - [Gherkin Style Guide](docs/GHERKIN_STYLE_GUIDE.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md): real error messages and how to fix them
 - [Cheat Sheet](docs/CHEATSHEET.md): every command and tag on one page
 - [Glossary](docs/GLOSSARY.md)
 - [Mobile Setup](docs/MOBILE_SETUP.md)
+
+## License
+
+MIT - see [LICENSE](LICENSE). The Applitools Eyes SDK used for visual tests has its own commercial license and needs your own Applitools account.

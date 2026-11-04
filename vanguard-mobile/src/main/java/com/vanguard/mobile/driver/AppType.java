@@ -10,6 +10,9 @@ import java.util.Collection;
 public enum AppType {
     NATIVE, HYBRID, MOBILE_WEB;
 
+    /**
+     * The app type from the scenario tags: {@code @mobileweb}, {@code @hybrid}, otherwise native.
+     */
     public static AppType resolve(Collection<String> scenarioTags) {
         if (scenarioTags.contains("@mobileweb")) {
             return MOBILE_WEB;
@@ -17,6 +20,9 @@ public enum AppType {
         return scenarioTags.contains("@hybrid") ? HYBRID : NATIVE;
     }
 
+    /**
+     * True when the scenario needs the app installed (native and hybrid).
+     */
     public boolean installsApp() {
         return this != MOBILE_WEB;
     }

@@ -18,7 +18,9 @@ import static io.gatling.javaapi.http.HttpDsl.status;
  */
 public class ApiBrowseSimulation extends ProfiledSimulation {
 
-    /** Endless supply of random product ids, used as #{productId} in the path. */
+    /**
+     * Endless supply of random product ids, used as #{productId} in the path.
+     */
     private final Iterator<Map<String, Object>> productIds = Stream.generate(
             () -> Map.<String, Object>of("productId", ThreadLocalRandom.current().nextInt(1, 101))).iterator();
 

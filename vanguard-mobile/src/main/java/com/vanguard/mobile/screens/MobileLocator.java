@@ -22,13 +22,17 @@ import org.openqa.selenium.By;
  */
 public record MobileLocator(By android, By ios) {
 
-    /** Same accessibility id on Android (content-desc) and iOS (accessibilityIdentifier / name). */
+    /**
+     * Same accessibility id on Android (content-desc) and iOS (accessibilityIdentifier / name).
+     */
     public static MobileLocator accessibilityId(String id) {
         By by = AppiumBy.accessibilityId(id);
         return new MobileLocator(by, by);
     }
 
-    /** Same locator on both platforms (e.g. a CSS selector inside a web view). */
+    /**
+     * Same locator on both platforms (e.g. a CSS selector inside a web view).
+     */
     public static MobileLocator both(By by) {
         return new MobileLocator(by, by);
     }

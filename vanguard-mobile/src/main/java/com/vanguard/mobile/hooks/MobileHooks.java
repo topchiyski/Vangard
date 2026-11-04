@@ -38,7 +38,9 @@ public class MobileHooks {
         MobileEyesManager.finishScenario();
     }
 
-    /** Shows passed/failed in the BrowserStack dashboard. */
+    /**
+     * Shows passed/failed in the BrowserStack dashboard.
+     */
     @After(value = "@mobile", order = CoreHooks.AFTER_MODULE - 1)
     public void reportToBrowserStack(Scenario scenario) {
         if (!"browserstack".equalsIgnoreCase(ConfigProvider.get().mobileTarget()) || !DriverRegistry.isActive()) {

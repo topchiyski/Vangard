@@ -45,7 +45,9 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
         return failedRequests * 100.0 / totalRequests;
     }
 
-    /** Response time for a percentile supported by Gatling's summary (50, 95 or 99). */
+    /**
+     * Response time for a percentile supported by Gatling's summary (50, 95 or 99).
+     */
     public long percentileMs(int percentile) {
         return switch (percentile) {
             case 50 -> p50Ms;
@@ -55,7 +57,9 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
         };
     }
 
-    /** A small HTML table for the Allure report. */
+    /**
+     * A small HTML table for the Allure report.
+     */
     public String toHtmlTable() {
         return """
                 <table border="1" cellpadding="4">

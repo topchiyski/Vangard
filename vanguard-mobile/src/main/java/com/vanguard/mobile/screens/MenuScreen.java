@@ -16,16 +16,25 @@ public class MenuScreen extends BaseScreen {
     private static final MobileLocator WEBVIEW = MobileLocator.accessibilityId("menu item webview");
     private static final MobileLocator CATALOG = MobileLocator.accessibilityId("menu item catalog");
 
+    /**
+     * Opens the menu and goes to the login screen.
+     */
     public void openLogin() {
         tap(OPEN_MENU);
         tap(LOG_IN);
     }
 
+    /**
+     * Opens the menu and goes to the web view screen.
+     */
     public void openWebView() {
         tap(OPEN_MENU);
         tap(WEBVIEW);
     }
 
+    /**
+     * Opens the menu and goes to the product catalog.
+     */
     public void openCatalog() {
         tap(OPEN_MENU);
         tap(CATALOG);

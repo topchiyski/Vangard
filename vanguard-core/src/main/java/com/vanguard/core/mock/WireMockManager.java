@@ -20,7 +20,9 @@ public final class WireMockManager {
     private WireMockManager() {
     }
 
-    /** Starts the server if needed and returns its base URL, e.g. {@code http://localhost:51234}. */
+    /**
+     * Starts the server if needed and returns its base URL, e.g. {@code http://localhost:51234}.
+     */
     public static String start() {
         WireMockServer local = server;
         if (local == null) {
@@ -41,7 +43,9 @@ public final class WireMockManager {
         return local.baseUrl();
     }
 
-    /** Stops the server. Safe to call more than once. */
+    /**
+     * Stops the server. Safe to call more than once.
+     */
     public static synchronized void stop() {
         if (server != null) {
             server.stop();

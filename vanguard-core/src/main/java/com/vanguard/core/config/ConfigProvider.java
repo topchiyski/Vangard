@@ -16,7 +16,9 @@ public final class ConfigProvider {
     private ConfigProvider() {
     }
 
-    /** Returns the shared, thread-safe configuration. */
+    /**
+     * Returns the shared, thread-safe configuration.
+     */
     public static FrameworkConfig get() {
         FrameworkConfig local = instance;
         if (local == null) {
@@ -34,7 +36,9 @@ public final class ConfigProvider {
         return local;
     }
 
-    /** Forces a reload on next {@link #get()}. Intended for unit tests only. */
+    /**
+     * Forces a reload on next {@link #get()}. Intended for unit tests only.
+     */
     public static synchronized void reset() {
         instance = null;
     }

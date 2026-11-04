@@ -8,7 +8,9 @@ import io.cucumber.java.en.When;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** Native ↔ web view switching (feature: hybrid_webview.feature). */
+/**
+ * Native ↔ web view switching (feature: hybrid_webview.feature).
+ */
 public class HybridSteps {
 
     private final MenuScreen menu;

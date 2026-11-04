@@ -1,4 +1,4 @@
-# Junior Onboarding Guide
+# Onboarding Guide
 
 This guide takes you from "never seen this project" to "I added my own tests", one step at a time.
 Every recipe uses **complete code**: copy it as shown and it works.
@@ -160,14 +160,18 @@ import org.openqa.selenium.By;
 
 import java.math.BigDecimal;
 
-/** The page of one product (/inventory-item.html). */
+/**
+ * The page of one product (/inventory-item.html).
+ */
 public class ProductDetailsPage extends BasePage {
 
     private static final By NAME = By.cssSelector("[data-test='inventory-item-name']");
     private static final By PRICE = By.cssSelector("[data-test='inventory-item-price']");
     private static final By BACK = By.id("back-to-products");
 
-    /** Opens a product by clicking its name on the products page. */
+    /**
+     * Opens a product by clicking its name on the products page.
+     */
     public void openFromProductList(String productName) {
         click(By.xpath("//*[@data-test='inventory-item-name' and normalize-space()='" + productName + "']"));
         waitForUrlContains("inventory-item.html");
@@ -177,7 +181,9 @@ public class ProductDetailsPage extends BasePage {
         return getText(NAME);
     }
 
-    /** The price shown, e.g. 49.99. */
+    /**
+     * The price shown, e.g. 49.99.
+     */
     public BigDecimal price() {
         return new BigDecimal(getText(PRICE).replace("$", ""));
     }
@@ -305,7 +311,9 @@ package com.vanguard.api.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-/** A blog post. Field names match the JSON property names. */
+/**
+ * A blog post. Field names match the JSON property names.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record PostDto(Integer id, Integer userId, String title, String body) {
@@ -340,14 +348,18 @@ package com.vanguard.api.client;
 import com.vanguard.core.context.ScenarioContext;
 import io.restassured.response.Response;
 
-/** Blog post endpoints. */
+/**
+ * Blog post endpoints.
+ */
 public class PostClient extends BaseApiClient {
 
     public PostClient(ScenarioContext context) {
         super(context);
     }
 
-    /** GET /posts/{id} */
+    /**
+     * GET /posts/{id}
+     */
     public Response getPost(int id) {
         return get("/posts/{id}", id);
     }
@@ -457,12 +469,16 @@ Create `vanguard-mobile/src/main/java/com/vanguard/mobile/screens/AboutScreen.ja
 ```java
 package com.vanguard.mobile.screens;
 
-/** The "About" screen. Same accessibility id on Android and iOS. */
+/**
+ * The "About" screen. Same accessibility id on Android and iOS.
+ */
 public class AboutScreen extends BaseScreen {
 
     private static final MobileLocator SCREEN = MobileLocator.accessibilityId("about screen");
 
-    /** Waits for the screen; fails with a clear message if it never appears. */
+    /**
+     * Waits for the screen; fails with a clear message if it never appears.
+     */
     public void waitUntilShown() {
         waitUntilVisible(SCREEN);
     }

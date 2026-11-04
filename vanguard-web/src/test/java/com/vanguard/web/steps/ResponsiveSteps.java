@@ -8,7 +8,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** Steps for phone-sized Chrome (feature: web_responsive.feature). */
+/**
+ * Steps for phone-sized Chrome (feature: web_responsive.feature).
+ */
 public class ResponsiveSteps {
 
     private final InventoryPage inventory;

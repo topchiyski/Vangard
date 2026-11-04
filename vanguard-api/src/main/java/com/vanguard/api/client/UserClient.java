@@ -14,22 +14,30 @@ public class UserClient extends BaseApiClient {
         super(context);
     }
 
-    /** GET /users/{id} */
+    /**
+     * GET /users/{id}
+     */
     public Response getUser(int id) {
         return get("/users/{id}", id);
     }
 
-    /** POST /users with the user as JSON. */
+    /**
+     * POST /users with the user as JSON.
+     */
     public Response createUser(UserDto user) {
         return post("/users", user);
     }
 
-    /** PUT /users/{id} with the user as JSON. */
+    /**
+     * PUT /users/{id} with the user as JSON.
+     */
     public Response updateUser(int id, UserDto user) {
         return put("/users/{id}", user, id);
     }
 
-    /** DELETE /users/{id} */
+    /**
+     * DELETE /users/{id}
+     */
     public Response deleteUser(int id) {
         return delete("/users/{id}", id);
     }

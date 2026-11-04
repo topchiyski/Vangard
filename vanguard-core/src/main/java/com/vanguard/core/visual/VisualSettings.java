@@ -13,12 +13,17 @@ public final class VisualSettings {
     private VisualSettings() {
     }
 
+    /**
+     * The Applitools API key from {@code APPLITOOLS_API_KEY}, or "" when it is not set.
+     */
     public static String apiKey() {
         String key = System.getenv("APPLITOOLS_API_KEY");
         return key == null ? "" : key.trim();
     }
 
-    /** Empty when visual checks run; otherwise the reason they are skipped. */
+    /**
+     * Empty when visual checks run; otherwise the reason they are skipped.
+     */
     public static Optional<String> skipReason() {
         if (!ConfigProvider.get().visualEnabled()) {
             return Optional.of("visual.enabled=false (run with -Dvisual.enabled=true)");
@@ -29,6 +34,9 @@ public final class VisualSettings {
         return Optional.empty();
     }
 
+    /**
+     * True when visual checks will really run (see {@link #skipReason()}).
+     */
     public static boolean isEffectivelyEnabled() {
         return skipReason().isEmpty();
     }
