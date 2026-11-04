@@ -33,9 +33,16 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
     private static final String FORMAT_CHANGED = "Gatling's console summary format changed: update LoadResult "
             + "(see vanguard-load/CLAUDE.md) - ";
 
-    /** Percentage of failed requests, 0-100. */
+    /**
+     * Percentage of failed requests, 0-100.
+     *
+     * @throws IllegalStateException when the load run sent no requests
+     */
     public double errorRatePercent() {
-        return totalRequests == 0 ? 0 : failedRequests * 100.0 / totalRequests;
+        if (totalRequests == 0) {
+            throw new IllegalStateException("Cannot calculate error rate: the load run sent no requests.");
+        }
+        return failedRequests * 100.0 / totalRequests;
     }
 
     /** Response time for a percentile supported by Gatling's summary (50, 95 or 99). */

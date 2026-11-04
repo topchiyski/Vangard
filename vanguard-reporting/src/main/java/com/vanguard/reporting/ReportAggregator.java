@@ -55,7 +55,11 @@ public final class ReportAggregator {
         Path root = Path.of(".");
         Path input = null;
         Instant since = null;
-        for (int i = 0; i + 1 < args.length; i += 2) {
+        for (int i = 0; i < args.length; i += 2) {
+            if (i + 1 >= args.length) {
+                throw new IllegalArgumentException("Missing value for " + args[i]
+                        + ". Use --root <dir> [--input <dir>] [--since <ISO instant>]");
+            }
             switch (args[i]) {
                 case "--root" -> root = Path.of(args[i + 1]);
                 case "--input" -> input = Path.of(args[i + 1]);
