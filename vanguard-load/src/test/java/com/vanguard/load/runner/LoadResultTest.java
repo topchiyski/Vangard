@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * The fixture is real Gatling 3.16 console output. After a Gatling upgrade, replace it with a fresh
@@ -39,6 +40,15 @@ public class LoadResultTest {
 
         assertThat(result.failedRequests()).isEqualTo(4);
         assertThat(result.errorRatePercent()).isEqualTo(1.0);
+    }
+
+    @Test
+    public void anEmptyRunCannotPassTheErrorRateCheck() {
+        LoadResult result = new LoadResult(0, 0, 0, 0, 0, 0, 0, 0, null, null);
+
+        assertThatThrownBy(result::errorRatePercent)
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("sent no requests");
     }
 
     @Test

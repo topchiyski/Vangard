@@ -35,9 +35,14 @@ public record LoadResult(long totalRequests, long failedRequests, long meanMs, l
 
     /**
      * Percentage of failed requests, 0-100.
+     *
+     * @throws IllegalStateException when the load run sent no requests
      */
     public double errorRatePercent() {
-        return totalRequests == 0 ? 0 : failedRequests * 100.0 / totalRequests;
+        if (totalRequests == 0) {
+            throw new IllegalStateException("Cannot calculate error rate: the load run sent no requests.");
+        }
+        return failedRequests * 100.0 / totalRequests;
     }
 
     /**

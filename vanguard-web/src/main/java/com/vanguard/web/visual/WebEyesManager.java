@@ -16,9 +16,8 @@ import com.applitools.eyes.visualgrid.services.VisualGridRunner;
 import com.vanguard.core.config.ConfigProvider;
 import com.vanguard.core.driver.DriverRegistry;
 import com.vanguard.core.visual.VisualSettings;
+import com.vanguard.core.visual.VisualTestSupport;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Optional;
 
 /**
  * Applitools Eyes for web scenarios. Juniors only use the visual steps
@@ -53,9 +52,7 @@ public final class WebEyesManager {
      * Takes a visual checkpoint, or logs why it was skipped.
      */
     public static void check(String checkpointName, ICheckSettings settings) {
-        Optional<String> skip = VisualSettings.skipReason();
-        if (skip.isPresent()) {
-            log.warn("Visual check skipped: {} [{}]", skip.get(), checkpointName);
+        if (VisualTestSupport.shouldSkipCheckpoint(checkpointName)) {
             return;
         }
         eyes().check(checkpointName, settings);
@@ -76,12 +73,9 @@ public final class WebEyesManager {
             if (results == null) {
                 return;
             }
-            if (Boolean.TRUE.equals(results.isNew())) {
-                log.info("New visual baseline saved - review it once in Applitools: {}", results.getUrl());
-            } else if (!results.isPassed()) {
-                throw new AssertionError("Visual differences found (" + results.getStatus() + "). "
-                        + "Review and accept/reject them in Applitools: " + results.getUrl());
-            }
+            VisualTestSupport.reportResult(Boolean.TRUE.equals(results.isNew()), results.isPassed(),
+                    String.valueOf(results.getStatus()), results.getUrl(),
+                    "Review and accept/reject them in Applitools");
         } finally {
             eyes.abortIfNotClosed();
         }
