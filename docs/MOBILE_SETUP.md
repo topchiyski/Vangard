@@ -128,5 +128,9 @@ Device names must match BrowserStack's device list. Each scenario appears in the
 
 ## Running mobile tests in CI
 
-The GitHub workflow runs Android on an Ubuntu emulator and iOS on a macOS runner, nightly or on demand.
+Mobile CI is **off by default**. The mobile jobs only run when the repository variable `MOBILE_ENABLED` is `true`.
+To turn it on, open GitHub > Settings > Secrets and variables > Actions > Variables and add `MOBILE_ENABLED` = `true`.
+
+Once enabled, the GitHub workflow runs Android on an Ubuntu emulator and iOS on a macOS runner, nightly or on demand.
+For an on-demand run, add `mobile-android` and/or `mobile-ios` to the `suites` input.
 Choose BrowserStack instead with the `mobile_target` input.

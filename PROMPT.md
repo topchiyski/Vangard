@@ -47,7 +47,7 @@ Each module has one **reference example** that juniors copy. It is the best-writ
   - a `.feature`;
   - a Page Object, Screen Object, API client, `record` DTO or load simulation;
   - the step definitions.
-- Templates hold `TODO:` markers that say exactly what to replace.
+- Templates hold `TODO` markers that say exactly what to replace.
 - Templates compile, but they are excluded from test runs.
 
 ## 3. Shared common step library (no code needed for common checks)
@@ -383,7 +383,7 @@ Also add a `@load @smoke` scenario against `/health`, and a `Scenario Outline` t
   | Input | Values | Default |
   |---|---|---|
   | `environment` | qa / staging / prod | qa |
-  | `suites` | multi-choice of api, web, mobile-android, mobile-ios, load, e2e | all except mobile-ios |
+  | `suites` | multi-choice of api, web, mobile-android, mobile-ios, load, e2e | api, web, e2e, load (mobile is off until `MOBILE_ENABLED` is set) |
   | `cucumber_tags` | free text | `not @wip` |
   | `browser_mode` | desktop / mobile | desktop |
   | `mobile_target` | local / browserstack | local |
@@ -392,8 +392,8 @@ Also add a `@load @smoke` scenario against `/health`, and a `Scenario Outline` t
 - **Jobs:**
   - **`core-api-web-e2e`:** `ubuntu-latest`, Temurin 21 with Maven cache, Chrome via `browser-actions/setup-chrome`.
   - **`load`:** `ubuntu-latest`. `smoke` on push and PR; `full` on nightly or manual dispatch.
-  - **`mobile-android`:** `ubuntu-latest` with KVM and `reactivecircus/android-emulator-runner`; installs Node, Appium 2 and the `uiautomator2` driver; downloads the sample apps. Runs on nightly and dispatch, or on BrowserStack when `mobile_target=browserstack`.
-  - **`mobile-ios`:** `macos-latest` with an iOS simulator, Appium 2 and the `xcuitest` driver, or BrowserStack. Runs on nightly and dispatch only.
+  - **`mobile-android`:** `ubuntu-latest` with KVM and `reactivecircus/android-emulator-runner`; installs Node, Appium 2 and the `uiautomator2` driver; downloads the sample apps. Only when the repo variable `MOBILE_ENABLED` is `true`; then runs on nightly and dispatch, or on BrowserStack when `mobile_target=browserstack`.
+  - **`mobile-ios`:** `macos-latest` with an iOS simulator, Appium 2 and the `xcuitest` driver, or BrowserStack. Only when `MOBILE_ENABLED` is `true`; then runs on nightly and dispatch only.
   - **`report`** (`needs` all jobs, `if: always()`):
     1. Download every job's `allure-results` and `cucumber.json`.
     2. Run `ReportAggregator --input`.

@@ -5,7 +5,7 @@ on:
     branches: [main]
   pull_request:
   schedule:
-    - cron: "0 2 * * *" # nightly 02:00 UTC: full load + mobile
+    - cron: "0 2 * * *" # nightly 02:00 UTC: full load (+ mobile when MOBILE_ENABLED is true)
   workflow_dispatch:
     inputs:
       environment:
@@ -14,9 +14,9 @@ on:
         options: [qa, staging, prod]
         default: qa
       suites:
-        description: "Suites to run (comma separated: api,web,e2e,load,mobile-android,mobile-ios)"
+        description: "Suites to run (comma separated: api,web,e2e,load,mobile-android,mobile-ios). Mobile also needs the MOBILE_ENABLED repo variable."
         type: string
-        default: api,web,e2e,load,mobile-android
+        default: api,web,e2e,load
       cucumber_tags:
         description: Cucumber tag expression
         type: string
@@ -48,7 +48,7 @@ concurrency:
 env:
   ENVIRONMENT: ${{ inputs.environment || 'qa' }}
   TAGS: ${{ inputs.cucumber_tags || 'not @wip' }}
-  SUITES: ${{ inputs.suites || 'api,web,e2e,load,mobile-android' }}
+  SUITES: ${{ inputs.suites || 'api,web,e2e,load' }}
   IS_NIGHTLY: ${{ github.event_name == 'schedule' }}
   APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -117,8 +117,9 @@ jobs:
 
   mobile-android:
     name: Mobile (Android)
-    # Mobile is slow: nightly, or when requested manually.
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(inputs.suites, 'mobile-android'))
+    # Off until the mobile apps are set up: set the repo variable MOBILE_ENABLED=true to turn it on
+    # (Settings > Secrets and variables > Actions > Variables). Then: nightly, or when requested manually.
+    if: vars.MOBILE_ENABLED == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(inputs.suites, 'mobile-android')))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -169,7 +170,8 @@ jobs:
 
   mobile-ios:
     name: Mobile (iOS)
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(inputs.suites, 'mobile-ios'))
+    # Off until the mobile apps are set up: same MOBILE_ENABLED switch as Android.
+    if: vars.MOBILE_ENABLED == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(inputs.suites, 'mobile-ios')))
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
